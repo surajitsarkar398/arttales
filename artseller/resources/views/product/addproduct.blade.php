@@ -58,11 +58,15 @@
                             <h4 style="font-weight:bold;color:red">Product Section:- 1</h4>
                             <button style="margin-left: 10px;"  class="btn btn-success btn-sm add_field_button">Add Product</button>
                             <div class="row">
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-4">
                                 <label for="demo-input-file" class="col-form-label">ProductName</label>
                                 <input class="form-control p" type="text" id="demo-text-input" name="product_name1" placeholder="Enter Your ProductName">
                             </div>
-                            <div class="form-group col-md-6" id="cloned">
+                            <div class="form-group col-md-4" id="cloned">
+                                <label for="demo-input-file" class="col-form-label">Choose Product Image</label>
+                                <input type="file" name="product_image1[]" accept="image/*" required="required" class="form-control" multiple>
+                            </div>
+                            <div class="form-group col-md-4" id="cloned">
                                 <label for="demo-input-file" class="col-form-label">Choose Product Image</label>
                                 <input type="file" name="product_image1[]" accept="image/*" required="required" class="form-control" multiple>
                             </div>
