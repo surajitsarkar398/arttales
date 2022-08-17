@@ -65,7 +65,7 @@
                 <div class="row align-items-center">
                     <div class="col-md-12">
                         <div class="page-header-title">
-                            <h5 class="m-b-10">Pending Order List</h5>
+                            <h5 class="m-b-10">Current Order List</h5>
                         </div>
                     </div>
                 </div>
@@ -80,7 +80,7 @@
                     <div class="card-header">
                             <div class="col-md-24 d-flex">
                        
-                            <form  action="{{URL('/order/pendingorder/productsearch')}}"  method="get" class="form-inline-my-2 my-lg-0 d-flex+"> 
+                            {{-- <form  action="{{URL('/order/pendingorder/productsearch')}}"  method="get" class="form-inline-my-2 my-lg-0 d-flex+"> 
                             @csrf
                             <div class="col-md-12 d-flex">
                                 <input class="form-control p" type="search"   name="search" placeholder="Enter your product..">
@@ -98,7 +98,7 @@
                              <button type="submit" name="hasCoffeeMachine" class="btn btn-primary mr-2" style="margin-left: 12px;">Search</button>
                        
                         </div>
-                    </form> 
+                    </form>  --}}
                     </div>
                      
                     </div>

@@ -80,7 +80,7 @@
                     <div class="card-header">
                           <div class="col-md-24 d-flex">
                        
-                            <form  action="{{URL('/order/pendingorder/productsearch')}}"  method="get" class="form-inline-my-2 my-lg-0 d-flex+"> 
+                            {{-- <form  action="{{URL('/order/pendingorder/productsearch')}}"  method="get" class="form-inline-my-2 my-lg-0 d-flex+"> 
                             @csrf
                             <div class="col-md-12 d-flex">
                                 <input class="form-control p" type="search"   name="search" placeholder="Enter your product..">
@@ -88,9 +88,9 @@
                         
                        
                         </div>
-                            </form>
+                            </form> --}}
 
-                        <form  action="{{URL('/order/pendingorder/searchstore')}}"  method="get" class="form-inline-my-2 my-lg-0 d-flex+"> 
+                        {{-- <form  action="{{URL('/order/pendingorder/searchstore')}}"  method="get" class="form-inline-my-2 my-lg-0 d-flex+"> 
                             @csrf
                         <div class="col-md-12 d-flex">
                                
@@ -98,7 +98,7 @@
                              <button type="submit" name="hasCoffeeMachine" class="btn btn-primary mr-2" style="margin-left: 12px;">Search</button>
                        
                         </div>
-                    </form> 
+                    </form>  --}}
                     </div>
                      
                     </div>
@@ -115,9 +115,8 @@
                                         <th>store name</th>
                                         <th>store category</th>
                                         <th>payment</th>
-                                     
-                                         <th>cancel date</th>
-                                         <th>cancel time</th>
+                                        <th>cancel date</th>
+                                        <th>cancel time</th>
  
                                     </tr>
                                 </thead>

@@ -215,7 +215,12 @@
                         </ul>
                     </li>
                     <li class="pc-item pc-hasmenu">
-                        <a href="{{ route('seller_user.index') }}" class="pc-link "><span class="pc-micon"><i data-feather="home"></i></span><span class="pc-mtext">Seller</span><span class="pc-arrow"></span></a>
+                        <a href="#!" class="pc-link"><span class="pc-micon"><i data-feather="shopping-cart"></i></span><span class="pc-mtext">Order Report</span><span class="pc-arrow"><i data-feather="chevron-right"></i></span></a>
+                        <ul class="pc-submenu">
+                            <li class="pc-item"><a class="pc-link" href="{{ route('order.monthly_report') }}">Monthly Report</a></li>
+                            <li class="pc-item"><a class="pc-link" href="{{ route('order.quatarly_report') }}">Quatarly Report</a></li>
+                            <li class="pc-item"><a class="pc-link" href="{{ route('order.product_report') }}">Productwise</a></li>
+                        </ul>
                     </li>
                 </ul>
             </div>

@@ -157,6 +157,9 @@ Route::middleware('auth')->group(function () {
       Route::get('/order_cancel/{id}', [App\Http\Controllers\OrderController::class, 'order_cancel'])->name('order_cancel');
       Route::get('/currentorder', [App\Http\Controllers\OrderController::class, 'currentorder'])->name('currentorder');
       Route::get('/pastorder', [App\Http\Controllers\OrderController::class, 'pastorder'])->name('pastorder');
+      Route::get('/monthly_report', [App\Http\Controllers\OrderController::class, 'monthly_report'])->name('monthly_report');
+      Route::get('/quatarly_report', [App\Http\Controllers\OrderController::class, 'quatarly_report'])->name('quatarly_report');
+      Route::get('/product_report', [App\Http\Controllers\OrderController::class, 'product_report'])->name('product_report');
       
 
      
