@@ -16,6 +16,7 @@ class Order extends Model
         'orders_id',
         'store_category',
         'payment',
+        'shipping_address',
         'dates',
         'times',
         'payment_method',

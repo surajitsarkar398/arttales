@@ -10,6 +10,12 @@
 </head>
 <body> -->
 <!-- [ Main Content ] start -->
+<?php
+  $all_store = array();
+    foreach($storelist AS $row){
+    $all_store[] = array("store_id"=>$row->store_id,"store_name"=>$row->store_name);
+  }
+?>
 <section class="pc-container">
     <div class="pcoded-content">
         <!-- [ breadcrumb ] start -->
@@ -63,8 +69,19 @@
                                 <input class="form-control p" type="text" id="demo-text-input" name="product_name1" placeholder="Enter Your ProductName">
                             </div>
                             <div class="form-group col-md-4" id="cloned">
-                                <label for="demo-input-file" class="col-form-label">Choose Product Image</label>
-                                <input type="file" name="product_image1[]" accept="image/*" required="required" class="form-control" multiple>
+                                <label for="demo-input-file" class="col-form-label">Select Store</label>
+                                <select  name="store1" id='store' class="form-control">
+                                    <option value="" selected disabled>Select</option>
+                                      @foreach($storelist as  $prefrence)
+                                          @if(!empty($artist))
+                                              <option @if($prefrence->id == $artist->main_category_name) selected @endif value="{{ $prefrence->store_id }}">
+                                                  {{$prefrence->store_name }}
+                                              </option>
+                                          @else
+                                              <option value="{{ $prefrence->store_id}}">{{$prefrence->store_name }}</option>
+                                          @endif    
+                                      @endforeach
+                                  </select>
                             </div>
                             <div class="form-group col-md-4" id="cloned">
                                 <label for="demo-input-file" class="col-form-label">Choose Product Image</label>
@@ -73,6 +90,7 @@
                             </div>
 
                             <div class="row">
+                               
                             <div class="form-group col-md-6">
                                 <label for="demo-input-file" class="col-form-label">Enter Your Poduct Price</label>
                                 <input class="form-control p" type="number" id="demo-text-input" name="price1" placeholder="Enter Your Poduct Price">
@@ -235,7 +253,26 @@
         return this;
     };
 
+var all_store = <?php echo json_encode($all_store); ?>;
+function all_store_option()
+{
+  var stores = new Array();
+  var i=0;
+  all_store.forEach(function(rows) {
+    if(rows.id!=""){
+        stores[i] = "<option value="+rows.store_id+">"+rows.store_name+"</option>";
+        i++;
+    }
+  });
+
+  return_store = stores.join();
+  return return_store;
+}
+
+
     $(document).ready(function() {
+        var data='<?php echo json_encode($storelist); ?>';
+        console.log(data);
         var max_fields = 100; //maximum input boxes allowed
         var wrapper = $(".customdiv"); //Fields wrapper
         var add_button = $(".add_field_button"); //Add button class
@@ -245,7 +282,7 @@
             e.preventDefault();
             if(x < max_fields){ //max input box allowed
                 x++; //text box increment
-                $(wrapper).append('<div class="card-body" id="div'+x+'"> <h4 style="font-weight:bold;color:red">Product Section:- '+x+'</h4>  <button style="margin-left: 10px;" class="btn btn-danger btn-sm remove_field">Remove Product</button> <div class="row"> <div class="form-group col-md-6"> <label for="demo-input-file" class="col-form-label">ProductName</label> <input class="form-control p" type="text" id="demo-text-input" name="product_name'+x+'" placeholder="Enter Your ProductName"> </div> <div class="form-group col-md-6" id="cloned"> <label for="demo-input-file" class="col-form-label">Choose Product Image</label> <input type="file" name="product_image'+x+'[]" accept="image/*" required="required" class="form-control" multiple> </div> </div> <div class="row"> <div class="form-group col-md-6"> <label for="demo-input-file" class="col-form-label">Enter Your Poduct Price</label> <input class="form-control p" type="number" id="demo-text-input" name="price'+x+'" placeholder="Enter Your Poduct Price"> </div> <div class="form-group col-md-6"> <label for="demo-input-file" class="col-form-label">Discount</label> <input class="form-control" type="number" id="demo-tel-input" placeholder="Enter Your Product Discount" name="discount'+x+'"> </div> </div> <div class="row"> <div class="form-group col-md-6"> <label for="demo-input-file" class="col-form-label">Offer Price</label> <input class="form-control" type="number" id="demo-tel-input" placeholder="Enter Your Product Offer Price" name="offer_price'+x+'"> </div> <div class="form-group col-md-6"> <label for="demo-input-file" class="col-form-label">Limited Stock</label> <input class="form-control" type="number" id="demo-tel-input" placeholder="Enter Your Product Stock" name="limited_stock'+x+'"> </div> </div> <div class="form-group"> <label for="demo-input-file" class="col-form-label">Product Description</label> <textarea class="form-control" type="text" name="product_description'+x+'" id="demo-email-input" placeholder="Enter Your Product Description"></textarea> </div> </div>'); //add input box
+                $(wrapper).append('<div class="card-body" id="div'+x+'"> <h4 style="font-weight:bold;color:red">Product Section:- '+x+'</h4>  <button style="margin-left: 10px;" class="btn btn-danger btn-sm remove_field">Remove Product</button> <div class="row"> <div class="form-group col-md-4"> <label for="demo-input-file" class="col-form-label">ProductName</label> <input class="form-control p" type="text" id="demo-text-input" name="product_name'+x+'" placeholder="Enter Your ProductName"> </div> <div class="form-group col-md-4" id="cloned"> <label for="demo-input-file" class="col-form-label">Select Store</label> <select name="store'+x+'" id="store'+x+'" class="form-control"> <option value="" selected disabled>Select</option>'+all_store_option()+'</select> </div><div class="form-group col-md-4" id="cloned"> <label for="demo-input-file" class="col-form-label">Choose Product Image</label> <input type="file" name="product_image'+x+'[]" accept="image/*" required="required" class="form-control" multiple> </div> </div> <div class="row"> <div class="form-group col-md-6"> <label for="demo-input-file" class="col-form-label">Enter Your Poduct Price</label> <input class="form-control p" type="number" id="demo-text-input" name="price'+x+'" placeholder="Enter Your Poduct Price"> </div> <div class="form-group col-md-6"> <label for="demo-input-file" class="col-form-label">Discount</label> <input class="form-control" type="number" id="demo-tel-input" placeholder="Enter Your Product Discount" name="discount'+x+'"> </div> </div> <div class="row"> <div class="form-group col-md-6"> <label for="demo-input-file" class="col-form-label">Offer Price</label> <input class="form-control" type="number" id="demo-tel-input" placeholder="Enter Your Product Offer Price" name="offer_price'+x+'"> </div> <div class="form-group col-md-6"> <label for="demo-input-file" class="col-form-label">Limited Stock</label> <input class="form-control" type="number" id="demo-tel-input" placeholder="Enter Your Product Stock" name="limited_stock'+x+'"> </div> </div> <div class="form-group"> <label for="demo-input-file" class="col-form-label">Product Description</label> <textarea class="form-control" type="text" name="product_description'+x+'" id="demo-email-input" placeholder="Enter Your Product Description"></textarea> </div> </div>'); //add input box
              
                 $("#tot_div").val(x);
                 $('html, body').animate({

@@ -153,6 +153,13 @@ Route::middleware('auth')->group(function () {
       Route::get('/', [App\Http\Controllers\OrderController::class, 'index'])->name('index');
       Route::get('/approveorder', [App\Http\Controllers\OrderController::class, 'approve'])->name('approve');
       Route::get('/cancelorder', [App\Http\Controllers\OrderController::class, 'cancel'])->name('cancel');
+      Route::get('/order_approve/{id}', [App\Http\Controllers\OrderController::class, 'order_approve'])->name('order_approve');
+      Route::get('/order_cancel/{id}', [App\Http\Controllers\OrderController::class, 'order_cancel'])->name('order_cancel');
+      Route::get('/currentorder', [App\Http\Controllers\OrderController::class, 'currentorder'])->name('currentorder');
+      Route::get('/pastorder', [App\Http\Controllers\OrderController::class, 'pastorder'])->name('pastorder');
+      
+
+     
    });
 
    //Post  Relate route 
@@ -197,6 +204,7 @@ Route::middleware('auth')->group(function () {
    // Route::get('/product/editproduct/edit/{id}', 'ProductController@edit');
     Route::post('/product/saveEdit', 'ProductController@saveEdit');
     Route::get('/product/destroy/{id}', 'ProductController@destroy');
+    Route::get('/order/orderStatusUpdate','OrderController@orderStatusUpdate');
 
    /*   //Route::get('/   ','UserController@index');
     Route::get('/user/addartist','UserController@create');
@@ -276,7 +284,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/order/pendingorder/searchstore','OrderController@searchstore');
     //approval
     Route::get('/order/approveorder','OrderController@approve');
-    Route::get('/order/orderStatusUpdate','OrderController@orderStatusUpdate');
+
 
     //cancel
     Route::get('/order/cancelorder','OrderController@cancel');

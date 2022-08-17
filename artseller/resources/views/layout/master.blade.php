@@ -149,7 +149,7 @@
                         </ul>
                     </li>
                     <li class="pc-item pc-hasmenu">
-                        <a href="#!" class="pc-link"><span class="pc-micon"><i data-feather="shopping-cart"></i></span><span class="pc-mtext">Storfghgfhe & Product</span><span class="pc-arrow"><i data-feather="chevron-right"></i></span></a>
+                        <a href="#!" class="pc-link"><span class="pc-micon"><i data-feather="shopping-cart"></i></span><span class="pc-mtext">Product</span><span class="pc-arrow"><i data-feather="chevron-right"></i></span></a>
                         <ul class="pc-submenu">
                             <li class="pc-item"><a class="pc-link" href="{{ route('product.index') }}">Manage Product</a></li>
                             <!-- 
@@ -173,6 +173,8 @@
                             <li class="pc-item"><a class="pc-link" href="{{ route('order.index') }}">Pending Order</a></li>
                             <li class="pc-item"><a class="pc-link" href="{{ route('order.approve') }}">Approve Order</a></li>
                             <li class="pc-item"><a class="pc-link" href="{{ route('order.cancel') }}">Cancelled Order</a></li>
+                            <li class="pc-item"><a class="pc-link" href="{{ route('order.currentorder') }}">Current Order</a></li>
+                            <li class="pc-item"><a class="pc-link" href="{{ route('order.pastorder') }}">Past Order</a></li>
                         </ul>
                     </li>
 

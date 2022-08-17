@@ -1444,12 +1444,21 @@ class ApiRepository extends User
 
   public function buy_now($data)
   {
-
+    
     $userOrder = new Order;
     $userOrder->register_id           = $data['user_id'];
     $userOrder->shipping_address  = $data['shipping_address'];
+    $userOrder->product_id  = $data['product_id'];
+    $userOrder->product_image  = $data['product_image'];
+    $userOrder->store_id  = $data['store_id'];
+    $userOrder->store_category  = $data['store_category'];
+    $userOrder->payment  = $data['payment'];
+    $userOrder->date  = $data['dates'];
+    $userOrder->times  = $data['times'];
+    $userOrder->payment_method  = $data['payment_method'];
+    $userOrder->status  = $data['status'];
     $userOrder->code = date('Ymd-His') . rand(10, 99);
-    $userOrder->date = strtotime('now');
+    $userOrder->date = date('Y-m-d');
     $userOrder->save();
 
     $userId = $userOrder->user_id;

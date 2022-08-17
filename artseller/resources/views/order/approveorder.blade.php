@@ -137,7 +137,7 @@
                                             <td>{{ $order->store_name }}</td>
                                             <td>{{ $order->category }}</td>
                                             <td>{{ $order->payment }}</td>
-                                            <td>{{ $order->dates }}</td>
+                                            <td>{{ $order->date }}</td>
                                             <td>{{ $order->times }}</td>
                                             <td>{{ $order->payment_method }}</td>
                                             <td>

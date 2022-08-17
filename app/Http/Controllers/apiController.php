@@ -29,14 +29,26 @@ class apiController extends Controller
         if ($request->method() == 'POST') {
 
             $rules = array(
-                'name'        => 'required|max:255',
-                'country_code' => 'required|max:3',
-                'mobile'      => 'required|max:255',
-                'dob'         => 'required|date',
-                'email'       => 'required|email|max:255|unique:users',
-                'password'    => 'required',
-                'repasswprd'  => 'required',
-                'role'        => 'required'
+                'register_id'     => 'required',
+                'product_id' => 'required',
+                'product_image' => 'required',
+                'store_id'    => 'required',
+                'store_category'    => 'max:225',
+                'payment'           => 'max:255',
+                'dates' => 'max:255',
+                'times'      => 'required',
+                'payment_method' => 'required',
+                'status' => 'required',
+
+                'user_id'=>'required',
+                'shop_id'=>'required',
+                'product_id'=>'required',
+                'price'=>'required',
+                'discount'=>'required',
+                'tax'=>'required',
+                'quantity'=>'required',
+                'shipping_cost'=>'required',
+                'shipping_address'=>'required',
             );
 
             $validation = Validator::make($data, $rules);

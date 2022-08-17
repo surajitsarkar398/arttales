@@ -10,6 +10,7 @@ use Validator;
 use App\Http\Utility\CustomVerfication;
 use DB;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Auth;
 
 
 class ProductController extends Controller
@@ -21,7 +22,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $productlist = Product::orderBy('product_id', 'DESC')
+        $productlist = Product::orderBy('product_id', 'DESC')->where('register_id','=',Auth::user()->register_id)
         ->Paginate(10);
 
         return view('product.view', compact('productlist'));
@@ -49,7 +50,10 @@ class ProductController extends Controller
     public function create()
     {
         //
-        return view('product.addproduct');
+
+        $storelist = Store::where('register_id','=',Auth::user()->register_id)
+                    ->get();
+        return view('product.addproduct',compact('storelist'));
     }
 
     /**
@@ -74,8 +78,9 @@ class ProductController extends Controller
             'product_description1' => 'required',
             'product_image1' => 'required',
             'limited_stock1' => 'required',
+            'store1' => 'required',
         );
-
+ 
         //print_r($data);die;
         $validation = Validator::make($data,$rules);
         if($validation->fails()){ 
@@ -96,6 +101,8 @@ class ProductController extends Controller
           $product->price=$data['price'.$i];
           $product->discount=$data['discount'.$i];
           $product->offer_price=$data['offer_price'.$i];
+          $product->store_id=$data['store'.$i];
+          $product->register_id=Auth::user()->register_id;
           $files =  $request->file('product_image'.$i);    
           $images=array();
           $path = "product";
@@ -113,7 +120,7 @@ class ProductController extends Controller
           $product->product_description=$data['limited_stock'.$i];
           $product->save();   
           }
-          
+         
           return redirect('product/add')->with('success','Products Added successfully.');
           }
     }

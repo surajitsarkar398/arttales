@@ -1446,21 +1446,33 @@ class ApiRepository extends User
   {
 
     $userOrder = new Order;
-    $userOrder->register_id           = $data['user_id'];
+    $userOrder->register_id           = $data['register_id'];
     $userOrder->shipping_address  = $data['shipping_address'];
+    $userOrder->product_id  = $data['product_id'];
+    $userOrder->product_image  = $data['product_image'];
+    $userOrder->store_id  = $data['store_id'];
+    $userOrder->store_category  = $data['store_category'];
+    $userOrder->payment  = $data['payment'];
+    $userOrder->date  = $data['dates'];
+    $userOrder->times  = $data['times'];
+    $userOrder->payment_method  = $data['payment_method'];
+    $userOrder->status  = $data['status'];
     $userOrder->code = date('Ymd-His') . rand(10, 99);
-    $userOrder->date = strtotime('now');
+    $userOrder->date = date('Y-m-d');
+    $userOrder->user_id = $data['user_id'];
     $userOrder->save();
-
+    $orderId=$userOrder->order_id;
+ 
     $userId = $userOrder->user_id;
-
+   
     $orderList = Order::where('user_id', $userId)->get();
-    foreach ($orderList as $order) {
-      $orderId = $order->id;
-    }
-
+    // foreach ($orderList as $order) {
+    //   $orderId = $order->id;
+    // }
+    
     $buyCart = new order_details;
     $buyCart->seller_id = $data['user_id'];
+    $buyCart->order_id = $orderId;
     $buyCart->shop_id = $data['shop_id'];
     $buyCart->product_id = $data['product_id'];
     $buyCart->price = $data['price'];
@@ -1481,7 +1493,7 @@ class ApiRepository extends User
       ->sum('quantity');
 
     $count_notification  = ($select_id * $qty) - $discount;
-
+  
     $getUsers = Order::where('user_id', $userId)->first();
     $getUsers->grand_total   =  $count_notification;
     $getUsers->save();

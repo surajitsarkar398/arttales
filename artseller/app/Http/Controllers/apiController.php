@@ -1762,9 +1762,18 @@ class apiController extends Controller
                 'dates' => 'max:255',
                 'times'      => 'required',
                 'payment_method' => 'required',
-               
-               
-             );
+                'status' => 'required',
+
+                'user_id'=>'required',
+                'shop_id'=>'required',
+                'product_id'=>'required',
+                'price'=>'required',
+                'discount'=>'required',
+                'tax'=>'required',
+                'quantity'=>'required',
+                'shipping_cost'=>'required',
+                'shipping_address'=>'required',
+              );
 
             $validation = Validator::make($data, $rules);
 

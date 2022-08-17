@@ -74,6 +74,46 @@ class OrderController extends Controller
       $Courses->is_approval = $request->status;
       $Courses->save();
     }
+    public function order_approve(Request $request)
+    {
+     
+      $Courses = Order::where('order_id','=',$request->id)->first();
+      $Courses->is_approval = "1";
+      $Courses->save();
+      return redirect('/order/approveorder/')->with('success','Order Approved');
+     
+    }
+    public function order_cancel(Request $request)
+    {
+      
+      $Courses = Order::where('order_id','=',$request->id)->first();
+      $Courses->is_cancelled = "1";
+      $Courses->save();
+      return redirect('/order/cancelorder/')->with('success','Order Cancelled');
+     
+    }
+    public function currentorder()
+    {
+      $orderlist = DB::table('orders')
+      ->join('users', 'orders.register_id', '=', 'users.register_id')
+      ->join('products', 'orders.product_id', '=', 'products.product_id')
+      ->join('stores', 'orders.store_id', '=', 'stores.store_id')
+      ->select('orders.*', 'users.*','products.*','stores.*')
+      ->where("date",'>=',date('Y-m-d'))
+      ->get();
+      return view('order.currentorder', compact('orderlist'));
+    }
+    public function pastorder()
+    {
+      $orderlist = DB::table('orders')
+      ->join('users', 'orders.register_id', '=', 'users.register_id')
+      ->join('products', 'orders.product_id', '=', 'products.product_id')
+      ->join('stores', 'orders.store_id', '=', 'stores.store_id')
+      ->select('orders.*', 'users.*','products.*','stores.*')
+      ->where("date",'<',date('Y-m-d'))
+      ->get();
+      return view('order.pastorder', compact('orderlist'));
+    }
 
       public function productsearch(Request $request){
         
