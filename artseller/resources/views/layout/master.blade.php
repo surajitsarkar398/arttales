@@ -124,30 +124,7 @@
                     </li>
 
 
-                    <li class="pc-item pc-hasmenu">
-                        <div class="pc-link "><span class="pc-micon"><i data-feather="user"></i></span><span class="pc-mtext">User</span><span class="pc-arrow"><i data-feather="chevron-right"></i></span></div>
-
-                        <ul class="pc-submenu">
-                            <li class="pc-item"><a class="pc-link" href="{{ route('artist.index') }}">Manage Artist</a></li>
-
-                            <li class="pc-item"><a class="pc-link" href="{{ route('artist-lover.index') }}">Manage Artist Lover</a></li>
-                        </ul>
-
-                    </li>
-                    <li class="pc-item pc-hasmenu">
-                        <div class="pc-link "><span class="pc-micon"><i data-feather="check-square"></i></span><span class="pc-mtext">Prefrence</span><span class="pc-arrow"><i data-feather="chevron-right"></i></span></div>
-                        <ul class="pc-submenu">
-                            <li class="pc-item">
-                                <a class="pc-link" href="{{ route('prefrence.index') }}">
-                                    Manage Prefrence
-                                </a>
-                            </li>
-                            <li class="pc-item">
-                                <a class="pc-link" href="{{ route('sub-prefrence.index') }}">
-                                    Manage Sub-Prefrence</a>
-                            </li>
-                        </ul>
-                    </li>
+                 
                     <li class="pc-item pc-hasmenu">
                         <a href="#!" class="pc-link"><span class="pc-micon"><i data-feather="shopping-cart"></i></span><span class="pc-mtext">Product</span><span class="pc-arrow"><i data-feather="chevron-right"></i></span></a>
                         <ul class="pc-submenu">

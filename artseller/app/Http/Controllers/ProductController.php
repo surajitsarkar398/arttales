@@ -8,10 +8,17 @@ use App\Models\User;
 use App\Models\Store;
 use Validator;
 use App\Http\Utility\CustomVerfication;
+use App\Imports\ProductImport;
+use App\Imports\UsersImport;
 use DB;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Auth;
-
+use Maatwebsite\Excel\Facades\Excel;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Reader\Exception;
+use PhpOffice\PhpSpreadsheet\Writer\Xls;
+use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing;
 
 class ProductController extends Controller
 {
@@ -22,7 +29,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $productlist = Product::orderBy('product_id', 'DESC')->where('register_id','=',Auth::user()->register_id)
+        $productlist = Product::orderBy('product_id', 'DESC')->where('seller_id','=',Auth::user()->register_id)
         ->Paginate(10);
 
         return view('product.view', compact('productlist'));
@@ -117,7 +124,7 @@ class ProductController extends Controller
           }
           $product['product_image'] = implode(',', $images); 
           $product->product_description=$data['product_description'.$i];
-          $product->product_description=$data['limited_stock'.$i];
+          $product->limited_stock=$data['limited_stock'.$i];
           $product->save();   
           }
          
@@ -211,6 +218,116 @@ class ProductController extends Controller
                 
     }
   
+    public function bulkupload(Request $request)
+    {
+      
+       
+        $this->validate($request, [
+            'excel_file' => 'required|file|mimes:xls,xlsx'
+        ]);
+
+
+        //Extract and upload image from excel//
+        $spreadsheet = IOFactory::load(request()->file('excel_file'));
+        $i = 1;
+        $data=array();
+        foreach ($spreadsheet->getActiveSheet()->getDrawingCollection() as $drawing) {
+         
+            if ($drawing instanceof MemoryDrawing) {
+                ob_start();
+                call_user_func(
+                    $drawing->getRenderingFunction(),
+                    $drawing->getImageResource()
+                );
+                $imageContents = ob_get_contents();
+              
+                ob_end_clean();
+                switch ($drawing->getMimeType()) {
+                    case MemoryDrawing::MIMETYPE_PNG :
+                        $extension = 'png';
+                        break;
+                    case MemoryDrawing::MIMETYPE_GIF:
+                        $extension = 'gif';
+                        break;
+                    case MemoryDrawing::MIMETYPE_JPEG :
+                        $extension = 'jpg';
+                        break;
+                }
+            } else {
+                $zipReader = fopen($drawing->getPath(), 'r');
+                $imageContents = '';
+                while (!feof($zipReader)) {
+                    $imageContents .= fread($zipReader, 1024);
+                }
+                fclose($zipReader);
+                $extension = $drawing->getExtension();
+            }
+
+            $myFileName = time() .++$i. '.' . $extension;
+            file_put_contents('public/images/product/'.$myFileName, $imageContents);
+          $data[$i]=$myFileName;
+            
+           
+        }
+     
+        $the_file = $request->file('excel_file');
+        
+            $spreadsheet = IOFactory::load($the_file->getRealPath());
+            $sheet        = $spreadsheet->getActiveSheet();
+            $row_limit    = $sheet->getHighestDataRow();
+            $column_limit = $sheet->getHighestDataColumn();
+            $row_range    = range( 2, $row_limit );
+            $column_range = range( 'H', $column_limit );
+            $startcount = 2;
+          
+         
+            foreach ( $row_range as $row ) {
+              
+                //CHECK STORE EXIST//
+                $productlist = Store::where('store_name', $sheet->getCell( 'B' . $row )->getValue())->count();
+                $store_id=0;
+              
+                if($productlist > 0)
+                {
+                    
+                    $productlist = Store::where('store_name', $sheet->getCell( 'B' . $row ))->first();
+                    $store_id=$productlist->store_id;
+                    
+                }else
+                {
+                  
+                    $store = new Store;
+                    $store->store_name=$sheet->getCell( 'A' . $row )->getValue();
+                    $store->store_image="no_img.jpg";
+                    $store->category="na";
+                    $store->mobile="0";
+                    $store->email="na";
+                    $store->website="na";
+                    $store->address="na";
+                    $store->attachment="na";
+                    $store->register_id=Auth::user()->register_id;
+                    $store->save();
+                    $store_id=$store->store_id;
+                }
+            
+               
+                $product = new Product;
+                $product->product_name=$sheet->getCell( 'A' . $row )->getValue();
+                $product->price=$sheet->getCell( 'D' . $row )->getValue();
+                $product->discount=$sheet->getCell( 'E' . $row )->getValue();
+                $product->offer_price=$sheet->getCell( 'F' . $row )->getValue();
+                $product->limited_stock=$sheet->getCell( 'G' . $row )->getValue();
+                $product->product_description=$sheet->getCell( 'H' . $row )->getValue();
+                $product->product_image=$data[$row];
+                $product->store_id=$store_id;
+                $product->seller_id=Auth::user()->register_id;
+                $product->save();
+                $startcount++;
+            }
+          
+         
+            return redirect('/product')->with('success','Product Has Been Updated'); 
+    }
     /**
      * Remove the specified resource from storage.
      *

@@ -125,11 +125,17 @@ class StoreController extends Controller
             $images = null;
           }
           }
+       
             $data['store_image'] = implode(',', $images); 
-            $data['register_id'] = Auth::user()->register_id; 
+            $data['register_id'] = Auth::user()->register_id;
+            
 
           
-            Store::create($data); 
+            $id=Store::create($data)->store_id; 
+            
+            $store_edit = Store::where('store_id', $id)->first();
+            $store_edit->store_code  = strtoupper(substr($request->store_name,0,3)).'-'.$id;
+            $store_edit->save();   
            
             return redirect('store')->with('success','Store Added successfully.');
             /*return redirect()->route('/user/addartist/')

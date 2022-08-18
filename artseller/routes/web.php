@@ -122,6 +122,7 @@ Route::middleware('auth')->group(function () {
 
 
       Route::post('store', [App\Http\Controllers\ProductController::class, 'store'])->name('store');
+      Route::post('bulkupload', [App\Http\Controllers\ProductController::class, 'bulkupload'])->name('bulkupload');
 
 
       Route::get('edit/{id}', [App\Http\Controllers\ProductController::class, 'edit'])->name('edit');

@@ -61,8 +61,8 @@
                         <div class="customdiv">
                             
                         <div class="card-body" id="div1">
-                            <h4 style="font-weight:bold;color:red">Product Section:- 1</h4>
-                            <button style="margin-left: 10px;"  class="btn btn-success btn-sm add_field_button">Add Product</button>
+                            <h4 style="font-weight:bold;color:red">Product Section:(Single Product)</h4>
+                          
                             <div class="row">
                             <div class="form-group col-md-4">
                                 <label for="demo-input-file" class="col-form-label">ProductName</label>
@@ -91,33 +91,61 @@
 
                             <div class="row">
                                
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-4">
                                 <label for="demo-input-file" class="col-form-label">Enter Your Poduct Price</label>
                                 <input class="form-control p" type="number" id="demo-text-input" name="price1" placeholder="Enter Your Poduct Price">
                             </div>
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-4">
                                 <label for="demo-input-file" class="col-form-label">Discount</label>
                                 <input class="form-control" type="number" id="demo-tel-input" placeholder="Enter Your Product Discount" name="discount1">
                             </div>
-                            </div>
-                            <div class="row">
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-4">
                                 <label for="demo-input-file" class="col-form-label">Offer Price</label>
                                 <input class="form-control" type="number" id="demo-tel-input" placeholder="Enter Your Product Offer Price" name="offer_price1">
                             </div>
-                            <div class="form-group col-md-6">
+                            </div>
+                            <div class="row">
+                            <div class="form-group col-md-4">
+                                <label for="demo-input-file" class="col-form-label">Offer Price</label>
+                                <input class="form-control" type="number" id="demo-tel-input" placeholder="Enter Your Product Offer Price" name="offer_price1">
+                            </div>
+                            <div class="form-group col-md-4">
                                 <label for="demo-input-file" class="col-form-label">Limited Stock</label>
                                 <input class="form-control" type="number" id="demo-tel-input" placeholder="Enter Your Product Stock" name="limited_stock1">
                             </div>
-                            </div>
-                            <div class="form-group">
+                            <div class="form-group col-md-4">
                                 <label for="demo-input-file" class="col-form-label">Product Description</label>
                                 <textarea class="form-control" type="text" name="product_description1" id="demo-email-input" placeholder="Enter Your Product Description"></textarea>
                             </div>
+                            </div>
+                           
                         </div>
                     </div>
                     <input type="hidden" name="tot_div" value="1" id="tot_div">
                         <center><button type="submit" class="btn btn-primary mr-2" style="margin-bottom: 22px;width: 160px;">Submit</button></center>
+                    </form>
+
+                    <form action="{{route('product.bulkupload')}}" enctype="multipart/form-data" method="post">
+                        @csrf
+                        
+                        <div class="customdiv">
+                            
+                        <div class="card-body" id="div1">
+                            <h4 style="font-weight:bold;color:red">Product Section:(Bulkproduct Upload With Excel File)</h4>
+                                <div class="row">
+                                <div class="form-group col-md-6">
+                                <label for="demo-input-file" class="col-form-label">Select File(Excel file)</label>
+                                    <input type="file" class="form-control" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" name="excel_file">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="demo-input-file" class="col-form-label">.</label><br>
+                                    <button type="submit" class="btn btn-primary mr-2" style="margin-bottom: 22px;width: 160px;">Submit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" name="tot_div" value="1" id="tot_div">
+                        <center></center>
                     </form>
                
                 </div>

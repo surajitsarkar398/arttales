@@ -18,7 +18,7 @@ class Product extends Model
         'limited_stock',
         'sell_product',
         'post_id',
-        'register_id',
+        'seller_id',
         'store_id',
         'payment_method'
     ];
