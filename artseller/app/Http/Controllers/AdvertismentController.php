@@ -122,12 +122,12 @@ class AdvertismentController extends Controller
   public function pendingstore()
   {
 
-    $adslist = DB::table('advertisments')
-      ->join('users', 'advertisments.register_id', '=', 'users.register_id')
-      ->join('stores', 'advertisments.store_id', '=', 'stores.store_id')
-      ->select('advertisments.*', 'users.*', 'stores.*')
-      ->where('advertisments.is_approval', '0')
-      ->where('advertisments.ads_type', 'store')
+    $adslist = DB::table('promotionals')
+    ->join('users', 'promotionals.register_id', '=', 'users.register_id')
+    ->join('products', 'promotionals.product_id', '=', 'products.product_id')
+    ->select('promotionals.*', 'users.*', 'products.*')
+    ->where('promotionals.is_aprove', '1')
+    ->where('promotionals.ads_type', 'post')
       ->get();
 
 
@@ -137,12 +137,12 @@ class AdvertismentController extends Controller
   public function pendingproduct()
   {
 
-    $adslist = DB::table('advertisments')
-      ->join('users', 'advertisments.register_id', '=', 'users.register_id')
-      ->join('products', 'advertisments.product_id', '=', 'products.product_id')
-      ->select('advertisments.*', 'users.*', 'products.*')
-      ->where('advertisments.is_approval', '0')
-      ->where('advertisments.ads_type', 'product')
+    $adslist = DB::table('promotionals')
+    ->join('users', 'promotionals.register_id', '=', 'users.register_id')
+    ->join('products', 'promotionals.product_id', '=', 'products.product_id')
+    ->select('promotionals.*', 'users.*', 'products.*')
+    ->where('promotionals.is_aprove', '0')
+    ->where('promotionals.ads_type', 'product')
       ->get();
 
 
@@ -152,11 +152,12 @@ class AdvertismentController extends Controller
   public function pendingprofile()
   {
 
-    $adslist = DB::table('advertisments')
-      ->join('users', 'advertisments.register_id', '=', 'users.register_id')
-      ->select('advertisments.*', 'users.*')
-      ->where('advertisments.is_approval', '0')
-      ->where('advertisments.ads_type', 'profile')
+    $adslist = DB::table('promotionals')
+    ->join('users', 'promotionals.register_id', '=', 'users.register_id')
+    ->join('products', 'promotionals.product_id', '=', 'products.product_id')
+    ->select('promotionals.*', 'users.*', 'products.*')
+    ->where('promotionals.is_aprove', '0')
+    ->where('promotionals.ads_type', 'profile')
       ->get();
 
 
@@ -167,12 +168,12 @@ class AdvertismentController extends Controller
   public function pendingpost()
   {
 
-    $adslist = DB::table('advertisments')
-      ->join('users', 'advertisments.register_id', '=', 'users.register_id')
-      ->join('posts', 'advertisments.post_id', '=', 'posts.post_id')
-      ->select('advertisments.*', 'users.*')
-      ->where('advertisments.is_approval', '0')
-      ->where('advertisments.ads_type', 'post')
+    $adslist = DB::table('promotionals')
+    ->join('users', 'promotionals.register_id', '=', 'users.register_id')
+    ->join('products', 'promotionals.product_id', '=', 'products.product_id')
+    ->select('promotionals.*', 'users.*', 'products.*')
+    ->where('promotionals.is_aprove', '0')
+    ->where('promotionals.ads_type', 'post')
       ->get();
 
 
@@ -194,12 +195,12 @@ class AdvertismentController extends Controller
     $Courses->end_date = $trialExpires;
     $Courses->save();
 
-    $adslist = DB::table('advertisments')
-      ->join('users', 'advertisments.register_id', '=', 'users.register_id')
-      ->join('products', 'advertisments.product_id', '=', 'products.product_id')
-      ->select('advertisments.*', 'users.*', 'products.*')
-      ->where('advertisments.is_approval', '0')
-      ->where('advertisments.ads_type', 'product')
+    $adslist = DB::table('promotionals')
+    ->join('users', 'promotionals.register_id', '=', 'users.register_id')
+    ->join('products', 'promotionals.product_id', '=', 'products.product_id')
+    ->select('promotionals.*', 'users.*', 'products.*')
+    ->where('promotionals.is_aprove', '1')
+    ->where('promotionals.ads_type', 'product')
       ->get();
 
 
@@ -223,12 +224,12 @@ class AdvertismentController extends Controller
     $Courses->end_date = $trialExpires;
     $Courses->save();
 
-    $adslist = DB::table('advertisments')
-      ->join('users', 'advertisments.register_id', '=', 'users.register_id')
-      ->join('stores', 'advertisments.store_id', '=', 'stores.store_id')
-      ->select('advertisments.*', 'users.*', 'stores.*')
-      ->where('advertisments.is_approval', '0')
-      ->where('advertisments.ads_type', 'store')
+    $adslist = DB::table('promotionals')
+    ->join('users', 'promotionals.register_id', '=', 'users.register_id')
+    ->join('products', 'promotionals.product_id', '=', 'products.product_id')
+    ->select('promotionals.*', 'users.*', 'products.*')
+    ->where('promotionals.is_aprove', '1')
+    ->where('promotionals.ads_type', 'store')
       ->get();
 
 
@@ -251,7 +252,7 @@ class AdvertismentController extends Controller
     $Courses->end_date = $trialExpires;
     $Courses->save();
 
-    $adslist = DB::table('advertisments')
+    $adslist = DB::table('promotionals')
       ->join('users', 'advertisments.register_id', '=', 'users.register_id')
       ->select('advertisments.*', 'users.*')
       ->where('advertisments.is_approval', '0')
@@ -271,7 +272,7 @@ class AdvertismentController extends Controller
     $Courses->start_date = $time;
     $Courses->save();
 
-    $adslist = DB::table('advertisments')
+    $adslist = DB::table('promotionals')
       ->join('users', 'advertisments.register_id', '=', 'users.register_id')
       ->join('posts', 'advertisments.post_id', '=', 'posts.post_id')
       ->select('advertisments.*', 'users.*')
@@ -290,13 +291,12 @@ class AdvertismentController extends Controller
     $time = $time->toDateTimeString();
     //  $Courses->ads_date = $time;
 
-    $adslist = DB::table('advertisments')
-      ->join('users', 'advertisments.register_id', '=', 'users.register_id')
-      ->join('products', 'advertisments.product_id', '=', 'products.product_id')
-      ->select('advertisments.*', 'users.*', 'products.*')
-      ->where('advertisments.is_approval', '1')
-      ->where('advertisments.ads_type', 'product')
-      ->where('advertisments.end_date', '>=', $time)
+    $adslist = DB::table('promotionals')
+      ->join('users', 'promotionals.register_id', '=', 'users.register_id')
+      ->join('products', 'promotionals.product_id', '=', 'products.product_id')
+      ->select('promotionals.*', 'users.*', 'products.*')
+      ->where('promotionals.is_aprove', '1')
+      ->where('promotionals.ads_type', 'product')
       ->get();
 
 
@@ -311,13 +311,12 @@ class AdvertismentController extends Controller
 
 
 
-    $adslist = DB::table('advertisments')
-      ->join('users', 'advertisments.register_id', '=', 'users.register_id')
-      ->join('posts', 'advertisments.post_id', '=', 'posts.post_id')
-      ->select('advertisments.*', 'users.*')
-      ->where('advertisments.is_approval', '1')
-      ->where('advertisments.ads_type', 'post')
-      ->where('advertisments.end_date', '>=', $time)
+    $adslist = DB::table('promotionals')
+    ->join('users', 'promotionals.register_id', '=', 'users.register_id')
+    ->join('products', 'promotionals.product_id', '=', 'products.product_id')
+    ->select('promotionals.*', 'users.*', 'products.*')
+    ->where('promotionals.is_aprove', '1')
+    ->where('promotionals.ads_type', 'post')
       ->get();
 
 
@@ -329,12 +328,12 @@ class AdvertismentController extends Controller
     $time = $time->toDateTimeString();
     //  $Courses->ads_date = $time;
 
-    $adslist = DB::table('advertisments')
-      ->join('users', 'advertisments.register_id', '=', 'users.register_id')
-      ->select('advertisments.*', 'users.*')
-      ->where('advertisments.is_approval', '1')
-      ->where('advertisments.ads_type', 'profile')
-      ->where('advertisments.end_date', '>=', $time)
+    $adslist = DB::table('promotionals')
+    ->join('users', 'promotionals.register_id', '=', 'users.register_id')
+    ->join('products', 'promotionals.product_id', '=', 'products.product_id')
+    ->select('promotionals.*', 'users.*', 'products.*')
+    ->where('promotionals.is_aprove', '1')
+    ->where('promotionals.ads_type', 'profile')
       ->get();
 
 
@@ -346,13 +345,12 @@ class AdvertismentController extends Controller
     $time = $time->toDateTimeString();
     //  $Courses->ads_date = $time;
 
-    $adslist = DB::table('advertisments')
-      ->join('users', 'advertisments.register_id', '=', 'users.register_id')
-      ->join('stores', 'advertisments.store_id', '=', 'stores.store_id')
-      ->select('advertisments.*', 'users.*', 'stores.*')
-      ->where('advertisments.is_approval', '1')
-      ->where('advertisments.ads_type', 'store')
-      ->where('advertisments.end_date', '>=', $time)
+    $adslist = DB::table('promotionals')
+    ->join('users', 'promotionals.register_id', '=', 'users.register_id')
+    ->join('products', 'promotionals.product_id', '=', 'products.product_id')
+    ->select('promotionals.*', 'users.*', 'products.*')
+    ->where('promotionals.is_aprove', '1')
+    ->where('promotionals.ads_type', 'store')
       ->get();
 
 

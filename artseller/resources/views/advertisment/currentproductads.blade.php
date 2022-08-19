@@ -92,7 +92,7 @@
                                         <th>product image</th>
                                         <th>start date</th>
                                         <th>end date</th>
-                                        <th>audience type</th>
+                                        
                                         <th>budget</th>
                                         <th>duration</th>
                                         <th>payment method</th>
@@ -112,7 +112,7 @@
                                             </td>
                                             <td>{{ $ads->start_date }}</td>
                                             <td>{{ $ads->end_date }}</td>
-                                            <td>{{ $ads->audience_type }}</td>
+                                          
                                             <td>{{ $ads->budget }}</td>
                                             <td>{{ $ads->duration }}</td>
                                             <td>{{ $ads->payment_method }}</td>

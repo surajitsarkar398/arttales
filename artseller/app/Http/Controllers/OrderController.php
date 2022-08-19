@@ -9,6 +9,7 @@ use App\Models\Product;
 use Validator;
 use DB;
 use App\Http\Utility\CustomVerfication;
+use Carbon\Carbon;
 
 
 class OrderController extends Controller
@@ -114,7 +115,85 @@ class OrderController extends Controller
       ->get();
       return view('order.pastorder', compact('orderlist'));
     }
+    public function monthly_report(Request $request)
+    {
+      
+      if(isset($request->month))
+      {
+        $month=$request->month;
+      }else
+      {
+        $month=date('m');
+      }
+      
+      $orderlist = DB::table('orders')
+      ->join('users', 'orders.register_id', '=', 'users.register_id')
+      ->join('products', 'orders.product_id', '=', 'products.product_id')
+      ->join('stores', 'orders.store_id', '=', 'stores.store_id')
+      ->select('orders.*', 'users.*','products.*','stores.*')
+      ->whereMonth("date",'=',$month)
+      ->get();
+      if(isset($request->print))
+      {
+        return view('reports.monthlyreportprint', compact('orderlist'));
+      }else{
+        return view('order.monthlyorder', compact('orderlist'));
+      }
+    
+    }
+    public function quatarly_report(Request $request)
+    {
+      
+      if(isset($request->start_date))
+      {
+        $start_date=$request->start_date;
+      }else
+      {
+        $start_date=date('Y-m-d');
+      }
+      $end_date=date("Y-m-d", strtotime($start_date.'+ 91 days'));
+     
+      $orderlist = DB::table('orders')
+      ->join('users', 'orders.register_id', '=', 'users.register_id')
+      ->join('products', 'orders.product_id', '=', 'products.product_id')
+      ->join('stores', 'orders.store_id', '=', 'stores.store_id')
+      ->select('orders.*', 'users.*','products.*','stores.*')
+      ->whereBetween("date",[$start_date,$end_date])
+      ->get();
+      if(isset($request->print))
+      {
+        return view('reports.quatarlyreportprint', compact('orderlist'));
+      }else{
+      return view('order.quatarlyorder', compact('orderlist'));
+      }
+    }
+    public function product_report(Request $request)
+    {
 
+      $productlist = Product::all();
+      $product=0;
+      if(isset($request->product))
+      {
+        $product=$request->product;
+      }else
+      {
+        $product=0;
+      }
+      $orderlist = DB::table('orders')
+      ->join('users', 'orders.register_id', '=', 'users.register_id')
+      ->join('products', 'orders.product_id', '=', 'products.product_id')
+      ->join('stores', 'orders.store_id', '=', 'stores.store_id')
+      ->select('orders.*', 'users.*','products.*','stores.*')
+      ->where("orders.product_id",'=',$product)
+      ->get();
+        if(isset($request->print))
+        {
+         return view('reports.productreportprint', compact('orderlist'),compact('productlist'));
+        }else 
+        {
+         return view('order.productwise', compact('orderlist'),compact('productlist'));
+        }
+    }
       public function productsearch(Request $request){
         
         $search = $request->get('search');
@@ -238,5 +317,17 @@ class OrderController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function print_productwise($id)
+    {
+
+    }
+    public function print_quatarly_report($id)
+    {
+      
+    }
+    public function print_monthly_report($id)
+    {
+      
     }
 }

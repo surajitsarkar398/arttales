@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use DB;
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Order;
+use App\Models\Product;
+use Auth;
 
 class DashboardController extends Controller
 {
@@ -23,8 +26,26 @@ class DashboardController extends Controller
     
     public function index()
     {
+        $register_id=Auth::user()->register_id;
         $count = User::where('role', 'Artist')->count();
-        return view('dashboard',compact('count'));
+        $data=array();
+        $data['daily_sale']=Order::where('user_id',$register_id)->where('date',date('Y-m-d'))->sum('grand_total');
+
+        $data['monthly_sale']=Order::where('user_id',$register_id)->whereMonth("date",'=',date('m'))->sum('grand_total');
+       
+        $data['yearly_sale']=Order::where('user_id',$register_id)->whereYear('date',date('Y'))->sum('grand_total');
+
+        $data['total_successfull_order']=Order::where('user_id',$register_id)->where('is_approval',1)->count();
+
+        $data['total_cancel_order']=Order::where('user_id',$register_id)->where('is_cancelled',1)->count();
+
+        $data['total_pending_order']=Order::where('user_id',$register_id)->where('is_cancelled',0)->where('is_approval',0)->count();
+
+        $data['total_product']=Product::where('seller_id',$register_id)->count();
+      
+       
+        
+        return view('dashboard',compact('count'),compact('data'));
     }
 
     /**

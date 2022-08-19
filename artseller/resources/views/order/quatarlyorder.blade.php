@@ -65,7 +65,7 @@
                 <div class="row align-items-center">
                     <div class="col-md-12">
                         <div class="page-header-title">
-                            <h5 class="m-b-10">Artist List</h5>
+                            <h5 class="m-b-10">Quatarly Order List</h5>
                         </div>
                     </div>
                 </div>
@@ -75,58 +75,73 @@
         <!-- [ Main Content ] start -->
         <div class="row">
             <!-- Zero config table start -->
-          
-
-
-            <div class="col-sm-12">
+            <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
+                            <div class="col-md-8 ">
+                       
+                            <form  action="{{URL('/order/quatarly_report')}}"  method="get" class="form-inline-my-2 my-lg-0 d-flex+"> 
+                            @csrf
+                            <div class="col-md-4 d-flex">
+                                <input type="date" class="form-control" name="start_date" id="">
+                                <button type="submit" name="hasCoffeeMachine" class="btn btn-primary mr-2" style="margin-left: 12px;">Search</button>
+                        
+                       
+                        </div>
+                            </form>
+
+                        {{-- <form  action="{{URL('/order/pendingorder/searchstore')}}"  method="get" class="form-inline-my-2 my-lg-0 d-flex+"> 
+                            @csrf
+                        <div class="col-md-12 d-flex">
+                               
+                                <input class="form-control p" type="search"   name="search" placeholder="Enter Your store.." style="margin-left: 140px;">
+                             <button type="submit" name="hasCoffeeMachine" class="btn btn-primary mr-2" style="margin-left: 12px;">Search</button>
+                       
+                        </div>
+                    </form>  --}}
+                    </div>
                      
                     </div>
                     <div class="card-body">
+                        <a target="_blank" href="{{ route('order.quatarly_report') }}?print=1&<?php echo $_SERVER['QUERY_STRING']; ?>" class="btn btn-success btn-sm">Print Report</a><br>
                         <div class="dt-responsive table-responsive">
                             <table id="simpletable" class="table table-striped table-bordered nowrap">
                                 <thead>
                                     <tr>
                                         <th>Sr No</th>
-                                        <th>Post Image</th>
-                                         <th>Description</th>
-                                         <th>tags</th>
-                                         <th>type</th>
-                                         <th>user name</th>
-                                         <th>views</th>
-                                        <th>delete</th>
-                                      
+                                        <th>order Id</th>
+                                        <th>user name</th>
+                                        <th>product name</th>
+                                        <th>product image</th>
+                                        <th>store name</th>
+                                        <th>store category</th>
+                                        <th>payment</th>
+                                        <th>dates</th>
+                                        <th>times</th>
+                                        <th>payment method</th>
+                                        <th>Status</th>
+                                        
                                     </tr>
                                 </thead>
-                                @foreach ($postlist as $no => $post)
+                                @foreach($orderlist as $no => $order)
                                 <tbody>
                                     <tr>
-                                  <td>{{ $no +1 }}</td>
-                                            <td><img src="{{ URL('public/images/post') }}/{{ str_replace('"', '', $post->post_image); }}" alt="" height="50px" width="50px"></td>
-                                            <td>{{ $post->descriptions }}</td>
-                                             <td>{{ $post->tags }}</td>
-                                            <td>{{ $post->type }}</td>
-                                            <td>{{ $post->name }}</td>
+                                            <td>{{ $no +1 }}</td>
+                                            <td>{{ $order->order_id }}</td>
+                                            <td>{{ $order->name }}</td>
+                                            <td>{{ $order->product_name }}</td>
                                             <td>
-                                           
-                                               
-                                                <a href="{{URL('/post/viewpost/show/'.$post->post_id)}}" type="submit"class="btn btn-danger btn-sm" >View</a>
-                                                
+                                            @foreach(explode(',',$order->product_image)  as $images)
+                                                <img src='{{ URL('public/images/product') }}/{{ str_replace('"', '', $images); }}' alt="" height="50px" width="50px">
+                                                 @endforeach
                                             </td>
-                                            <td>
-                                                  <form action="{{URL('/user/viewpost/destroy',$post->post_id)}}" method="post">
-                                                     @csrf
-                                                 @method('DELETE')
-                                                <button type="submit"class="btn btn-danger btn-sm"  ><i class="feather icon-trash-2"></i>Delete</button>
-                                                 </form>
-                                               <script>
-                                                  function myFunction() {
-                                                      if(!confirm("Are You Sure to delete this"))
-                                                      event.preventDefault();
-                                                  }
-                                                 </script>
-                                            </td>
+                                            <td>{{ $order->store_name }}</td>
+                                            <td>{{ $order->category }}</td>
+                                            <td>{{ $order->payment }}</td>
+                                            <td>{{ $order->date }}</td>
+                                            <td>{{ $order->times }}</td>
+                                            <td>{{ $order->payment_method }}</td>
+                                            <td><?php if($order->is_approval=='0'){ echo '<a class="btn btn-success btn-sm">Approved</a>'; }else if($order->is_cancelled=='0'){ echo '<a  class="btn btn-danger btn-sm">Cancelled</a>';}else if($order->status=='0'){echo '<a class="btn btn-warning btn-sm">Pending</a>';} ?></td>
                                 </tbody>
                                 @endforeach
                                 <tfoot>
@@ -137,19 +152,39 @@
                     </div>
                 </div>
             </div>
-            <!-- Zero config table end -->
-           
-      
-      
-            
-          
+            <!-- Zero config table end -->       
         </div>
         <!-- [ Main Content ] end -->
     </div>
 </section>
 <!-- [ Main Content ] end -->
 </div>
+
 @endsection
+
+<script type="text/javascript">
+    function ChangeStatus(Id, Status)
+    {
+        $("#LoadingProgress").fadeIn('fast');
+        
+        $.ajax({
+            url: "{{ URL('/order/ChangeStatus') }}/"+Id+"/"+Status,
+            type: "GET",
+            contentType: false,
+            cache: false,
+            processData:false,
+            success: function( data, textStatus, jqXHR ) {
+                window.location.reload();
+                $("#LoadingProgress").fadeOut('fast');
+            },
+            error: function( jqXHR, textStatus, errorThrown ) {
+            
+            }
+        });
+    }
+</script>
+
+
     <!-- Warning Section start -->
     <!-- Older IE warning message -->
     <!--[if lt IE 11]>
@@ -276,29 +311,6 @@
         return this;
     };
 </script>
-
-<script type="text/javascript">
-    function ChangeStatus(Id, Status)
-    {
-        $("#LoadingProgress").fadeIn('fast');
-        
-        $.ajax({
-            url: "{{ URL('/users/ChangeStatus') }}/"+Id+"/"+Status,
-            type: "GET",
-            contentType: false,
-            cache: false,
-            processData:false,
-            success: function( data, textStatus, jqXHR ) {
-                window.location.reload();
-                $("#LoadingProgress").fadeOut('fast');
-            },
-            error: function( jqXHR, textStatus, errorThrown ) {
-            
-            }
-        });
-    }
-</script>
-
 
 <!-- </body> -->
 

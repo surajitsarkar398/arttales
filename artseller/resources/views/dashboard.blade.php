@@ -14,7 +14,7 @@
                             <h5 class="m-b-10">Dashboard</h5>
                         </div>
                         <ul class="breadcrumb">
-                           <!--  <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                            <!--  <li class="breadcrumb-item"><a href="index.html">Home</a></li>
                             <li class="breadcrumb-item">Dashboard sale</li> -->
                         </ul>
                     </div>
@@ -31,10 +31,10 @@
                         <h6 class="mb-4">Daily Sales</h6>
                         <div class="row d-flex align-items-center">
                             <div class="col-9">
-                                <h3 class="f-w-300 d-flex align-items-center "><i class="feather icon-arrow-up text-success f-30 m-r-10"></i>$249.95</h3>
+                                <h3 class="f-w-300 d-flex align-items-center ">Rs. <?php echo  number_format($data['daily_sale'],2); ?></h3>
                             </div>
                             <div class="col-3 text-right">
-                                <p class="">67%</p>
+                              
                             </div>
                         </div>
                     </div>
@@ -49,10 +49,10 @@
 
                         <div class="row d-flex align-items-center">
                             <div class="col-9">
-                                <h3 class="f-w-300 d-flex align-items-center  "><i class="feather icon-arrow-down text-danger f-30 m-r-10"></i>$2.942.32</h3>
+                                <h3 class="f-w-300 d-flex align-items-center  ">Rs. <?php echo  number_format($data['monthly_sale'],2); ?></h3>
                             </div>
                             <div class="col-3 text-right">
-                                <p class="">36%</p>
+                              
                             </div>
                         </div>
                     </div>
@@ -66,7 +66,7 @@
                         <h6 class="mb-4">Yearly Sales</h6>
                         <div class="row d-flex align-items-center">
                             <div class="col-9">
-                                <h3 class="f-w-300 d-flex align-items-center  "><i class="feather icon-arrow-up text-success f-30 m-r-10"></i>$8.638.32</h3>
+                                <h3 class="f-w-300 d-flex align-items-center  ">Rs. <?php echo  number_format($data['yearly_sale'],2); ?></h3>
                             </div>
                             <div class="col-3 text-right">
                                 <p class="">80%</p>
@@ -81,12 +81,10 @@
                     <div class="card-body">
                         <div class="row d-flex align-items-center">
                             <div class="col-9">
-                                <h3 class="f-w-300 d-flex align-items-center">Total Artist</h3>
+                                <h3 class="f-w-300 d-flex align-items-center">Products</h3>
                             </div>
-                         
                             <div class="col-3 text-right">
-                           
-                               <p class=""><span>2</span></p>
+                                <p class=""><?php echo  $data['total_product']; ?></p>
                             </div>
                         </div>
                     </div>
@@ -97,52 +95,10 @@
                     <div class="card-body">
                         <div class="row d-flex align-items-center">
                             <div class="col-9">
-                                <h3 class="f-w-300 d-flex align-items-center">Total Artist Lover</h3>
+                                <h3 class="f-w-300 d-flex align-items-center">Successful orders</h3>
                             </div>
-                              <div class="col-3 text-right">
-                                <p class="">{{ $count }}</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-xl-4">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="row d-flex align-items-center">
-                            <div class="col-9">
-                                <h3 class="f-w-300 d-flex align-items-center">Total Estore</h3>
-                            </div>
-                              <div class="col-3 text-right">
-                                <p class="">3</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-                   <div class="col-md-6 col-xl-4">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="row d-flex align-items-center">
-                            <div class="col-9">
-                                <h3 class="f-w-300 d-flex align-items-center">Total Advertisement</h3>
-                            </div>
-                              <div class="col-3 text-right">
-                                <p class="">5</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-                   <div class="col-md-6 col-xl-4">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="row d-flex align-items-center">
-                            <div class="col-9">
-                                <h3 class="f-w-300 d-flex align-items-center">Total Active Advertisement</h3>
-                            </div>
-                              <div class="col-3 text-right">
-                                <p class="">0</p>
+                            <div class="col-3 text-right">
+                                <p class=""><?php echo  $data['total_successfull_order']; ?></p>
                             </div>
                         </div>
                     </div>
@@ -153,70 +109,42 @@
                     <div class="card-body">
                         <div class="row d-flex align-items-center">
                             <div class="col-9">
-                                <h3 class="f-w-300 d-flex align-items-center">Total Active Advertisement Revenues</h3>
+                                <h3 class="f-w-300 d-flex align-items-center">Cancelled orders</h3>
                             </div>
-                              <div class="col-3 text-right">
-                                <p class="">0</p>
+                            <div class="col-3 text-right">
+                                <p class=""><?php echo  $data['total_cancel_order']; ?></p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-                 <div class="col-md-6 col-xl-4">
+            <div class="col-md-6 col-xl-4">
                 <div class="card">
                     <div class="card-body">
                         <div class="row d-flex align-items-center">
                             <div class="col-9">
-                                <h3 class="f-w-300 d-flex align-items-center">Total Estore Revenues</h3>
+                                <h3 class="f-w-300 d-flex align-items-center">Pending orders</h3>
                             </div>
-                              <div class="col-3 text-right">
-                                <p class="">0</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-                 <div class="col-md-6 col-xl-4">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="row d-flex align-items-center">
-                            <div class="col-9">
-                                <h3 class="f-w-300 d-flex align-items-center">Total Active Advertisement Revenues</h3>
-                            </div>
-                              <div class="col-3 text-right">
-                                <p class="">0</p>
+                            <div class="col-3 text-right">
+                                <p class=""><?php echo  $data['total_pending_order']; ?></p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-                 <div class="col-md-6 col-xl-4">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="row d-flex align-items-center">
-                            <div class="col-9">
-                                <h3 class="f-w-300 d-flex align-items-center">Total Active Advertisement Revenues</h3>
-                            </div>
-                              <div class="col-3 text-right">
-                                <p class="">0</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-         
-       
-       
-        
+
+
+
+
         </div>
         <!-- [ Main Content ] end -->
     </div>
 </div>
 <!-- [ Main Content ] end -->
 </div>
-    <!-- Warning Section start -->
-    <!-- Older IE warning message -->
-    <!--[if lt IE 11]>
+<!-- Warning Section start -->
+<!-- Older IE warning message -->
+<!--[if lt IE 11]>
         <div class="ie-warning">
             <h1>Warning!!</h1>
             <p>You are using an outdated version of Internet Explorer, please upgrade
@@ -259,15 +187,15 @@
             <p>Sorry for the inconvenience!</p>
         </div>
     <![endif]-->
-    <!-- Warning Section Ends -->
-    <!-- Required Js -->
-    <script src="assets/js/vendor-all.min.js"></script>
-    <script src="assets/js/plugins/bootstrap.min.js"></script>
-    <script src="assets/js/plugins/feather.min.js"></script>
-    <script src="assets/js/pcoded.min.js"></script>
-    <script src="../../../../cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-    <script src="assets/js/plugins/clipboard.min.js"></script>
-    <script src="assets/js/uikit.min.js"></script>
+<!-- Warning Section Ends -->
+<!-- Required Js -->
+<script src="assets/js/vendor-all.min.js"></script>
+<script src="assets/js/plugins/bootstrap.min.js"></script>
+<script src="assets/js/plugins/feather.min.js"></script>
+<script src="assets/js/pcoded.min.js"></script>
+<script src="../../../../cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script src="assets/js/plugins/clipboard.min.js"></script>
+<script src="assets/js/uikit.min.js"></script>
 
 <!-- Apex Chart -->
 <script src="assets/js/plugins/apexcharts.min.js"></script>
@@ -343,6 +271,3 @@
 <script src="assets/js/pages/dashboard-sale.js"></script>
 
 @endsection
-
-<!-- Mirrored from html.phoenixcoded.net/nextro-able/bootstrap/default/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 29 Nov 2020 06:35:48 GMT -->
-

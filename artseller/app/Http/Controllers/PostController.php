@@ -7,7 +7,7 @@ use App\Models\Post;
 use Validator;
 use App\Http\Utility\CustomVerfication;
 use DB;
-
+use Auth;
 
 
 class PostController extends Controller
@@ -19,8 +19,9 @@ class PostController extends Controller
      */
     public function index()
     {
+        $register_id=Auth::user()->regisetr_id;
         $postlist = Post::join('users','posts.register_id','=','users.register_id')
-         ->select('posts.*','users.name')
+         ->select('posts.*','users.name')->where('posts.register_id','=',$register_id)
         ->orderBy('post_id', 'DESC')
         ->get();
 
