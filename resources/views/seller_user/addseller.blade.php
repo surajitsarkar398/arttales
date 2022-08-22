@@ -2,144 +2,112 @@
 @section('master')
 
 <!-- <!DOCTYPE html>
-<html lang="en"> -->
+<html lang="en">
+<head>
 
-<!-- Mirrored from html.phoenixcoded.net/nextro-able/bootstrap/default/dt_basic.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 29 Nov 2020 06:37:23 GMT -->
-<!-- <head> -->
- <!-- data tables css -->
-    <link rel="stylesheet" href="{{URL('assets/css/plugins/dataTables.bootstrap4.min.css')}}">
-    <!-- font css -->
-  
-
-    <script>
-        (function(h,o,t,j,a,r){
-            h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
-            h._hjSettings={hjid:1951099,hjsv:6};
-            a=o.getElementsByTagName('head')[0];
-            r=o.createElement('script');r.async=1;
-            r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
-            a.appendChild(r);
-        })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
-    </script>
+<link rel="stylesheet" href="build/css/intlTelInput.css">
 
 </head>
-
-<body class="">
-    <!-- [ Pre-loader ] start -->
-    <div class="loader-bg">
-        <div class="loader-track">
-            <div class="loader-fill"></div>
-        </div>
-    </div>
-    <!-- [ Pre-loader ] End -->
-    <!-- [ Mobile header ] start -->
-    <div class="pc-mob-header pc-header">
-        <div class="pcm-logo">
-            <img src="assets/images/logo.svg" alt="" class="logo logo-lg">
-        </div>
-        <div class="pcm-toolbar">
-            <a href="#!" class="pc-head-link" id="mobile-collapse">
-                <div class="hamburger hamburger--arrowturn">
-                    <div class="hamburger-box">
-                        <div class="hamburger-inner"></div>
-                    </div>
-                </div>
-                <!-- <i data-feather="menu"></i> -->
-            </a>
-            <a href="#!" class="pc-head-link" id="headerdrp-collapse">
-                <i data-feather="align-right"></i>
-            </a>
-            <a href="#!" class="pc-head-link" id="header-collapse">
-                <i data-feather="more-vertical"></i>
-            </a>
-        </div>
-    </div>
-    
-
-<!-- [ Main Content ] start -->
+<body> -->
+	<!-- [ Main Content ] start -->
 <section class="pc-container">
     <div class="pcoded-content">
         <!-- [ breadcrumb ] start -->
         <div class="page-header">
             <div class="page-block">
                 <div class="row align-items-center">
-                    <div class="col-md-12">
+                      <div class="col-md-6">
                         <div class="page-header-title">
-                            <h5 class="m-b-10">Current Product Ads List</h5>
+                            <h5 class="m-b-10">Add Seller</h5>
                         </div>
+                    <div class="col-md-12">
+                   <!--      <ul class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="#">Add Artist Lover</a></li>
+                        </ul> -->
+                    </div>
                     </div>
                 </div>
             </div>
         </div>
         <!-- [ breadcrumb ] end -->
         <!-- [ Main Content ] start -->
-        <div class="row">
-            <!-- Zero config table start -->
+        <div class="form-row">
+            <!-- [ form-element ] start -->
             <div class="col-sm-12">
-                <div class="card">
+                <!-- Basic Inputs -->
+               
+                <!-- HTML Input Types -->
+                <div class="card ">
                     <div class="card-header">
-        
+                        <h5>Add Seller</h5>
                     </div>
+                     {{-- @include('alertmessage') --}}
+                    <form  action="{{URL('seller/store')}}"  enctype="multipart/form-data" method="post">
+                         @csrf
                     <div class="card-body">
-                        <div class="dt-responsive table-responsive">
-                            <table id="simpletable" class="table table-striped table-bordered nowrap">
-                                <thead>
-                                    <tr>
-                                        <th>Sr No</th>
-                                        <th>Ads type</th>
-                                        <th>user name</th>
-                                        <th>product name</th>
-                                        <th>product image</th>
-                                        <th>start date</th>
-                                        <th>end date</th>
-                                        
-                                        <th>budget</th>
-                                        <th>duration</th>
-                                        <th>payment method</th>
-                                    </tr>
-                                </thead>
-                                @foreach($adslist as $no => $ads)
-                                <tbody>
-                                    <tr>
-                                            <td>{{ $no +1 }}</td>
-                                            <td>{{ $ads->ads_type }}</td>
-                                            <td>{{ $ads->name }}</td>
-                                            <td>{{ $ads->product_name }}</td>
-                                            <td>
-                                            @foreach(explode(',',$ads->product_image)  as $images)
-                                                <img src="{{ URL('public/images/product') }}/{{ $images }}" alt="" height="100px" width="100px">
-                                                 @endforeach
-                                            </td>
-                                            <td>{{ $ads->start_date }}</td>
-                                            <td>{{ $ads->end_date }}</td>
-                                          
-                                            <td>{{ $ads->budget }}</td>
-                                            <td>{{ $ads->duration }}</td>
-                                            <td>{{ $ads->payment_method }}</td>
-                                               
-                                </tbody>
-                                @endforeach
-                                <tfoot>
-                            
-                                </tfoot>
-                            </table>
+                        <div class="row">
+                      <div class="form-group col-md-3">    
+                            <label for="demo-input-file" class="col-form-label">Choose Profile Image</label>
+                            <input class="form-control p" type="file" id="demo-input-file" name="image">
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="demo-input-file" class="col-form-label">Enter Name</label>
+                           <input class="form-control p" type="text"  id="demo-text-input" name="name"placeholder="Enter Your Name">
+                        </div>
+                        <div class="form-group col-md-1">
+                            <label for="demo-input-file" class="col-form-label">Country Code</label>
+                            <input class="form-control p" type="text"  id="demo-text-input" name="country_code" placeholder="CountryCode">
+
+                        </div>
+                        <div class="form-group col-md-5">
+                            <label for="demo-input-file" class="col-form-label">Mobile Numnber</label>
+                            <input class="form-control" type="tel"  id="demo-tel-input" placeholder="Enter Your Number" name="mobile">
                         </div>
                     </div>
+                        
+                       <div class="row">
+                          <div class="form-group col-md-3">
+                            <label for="demo-date-only" class="col-form-label">Date Of Birth</label>
+                            <input class="form-control" type="date" name="dob" id="demo-date-only">
+                        </div>
+                         <div class="form-group col-md-3">
+                            <label for="demo-date-only" class="col-form-label">Email</label>
+                            <input class="form-control" type="email" name="email"  id="demo-email-input" placeholder="Enter Your Email">
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="demo-date-only" class="col-form-label">Password</label>
+                            <input class="form-control" type="password" name="password" id="demo-password-input"  placeholder="Enter Your Password">
+                        </div>
+                          <div class="form-group col-md-3">
+                            <label for="demo-date-only" class="col-form-label">Retype Password</label>
+                            <input class="form-control" type="password" name="repasswprd" id="demo-password-input"  placeholder="ReEnter Your Password">
+                        </div>
+                    </div>
+                        <input type="hidden" name="user_type" value="seller">
+                        <div class="form-group">
+                            <label for="demo-option-input " class="col-form-label " name="role">Select Role</label>
+                         <select class="form-control p" id="selectUser"name="role">
+                                  <option value="select">Select</option>
+                                  <option value="Seller">Seller</option>
+                                  </select>
+                  
+                        </div>
+                        <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                    </div>
+                     
+                       
+                    </form>
                 </div>
             </div>
-            <!-- Zero config table end -->       
-        </div>
+       
         <!-- [ Main Content ] end -->
+
     </div>
 </section>
 <!-- [ Main Content ] end -->
 </div>
 
 @endsection
-
-
-
-
     <!-- Warning Section start -->
     <!-- Older IE warning message -->
     <!--[if lt IE 11]>
@@ -191,14 +159,10 @@
     <script src="{{URL('assets/js/plugins/bootstrap.min.js')}}"></script>
     <script src="{{URL('assets/js/plugins/feather.min.js')}}"></script>
     <script src="{{URL('assets/js/pcoded.min.js')}}"></script>
-    <script src="{{URL('assets/js/highlight.min.js')}}"></script>
+    <script src="../../../../cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
     <script src="{{URL('assets/js/plugins/clipboard.min.js')}}"></script>
     <script src="{{URL('assets/js/uikit.min.js')}}"></script>
 
-<!-- datatable Js -->
-<script src="{{URL('assets/js/plugins/jquery.dataTables.min.js')}}"></script>
-<script src="{{URL('assets/js/plugins/dataTables.bootstrap4.min.js')}}"></script>
-<script src="{{URL('assets/js/pages/data-basic-custom.js')}}"></script>
 
 <script>
     // header option
@@ -267,7 +231,11 @@
     };
 </script>
 
+
 <!-- </body> -->
 
-<!-- Mirrored from html.phoenixcoded.net/nextro-able/bootstrap/default/dt_basic.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 29 Nov 2020 06:37:24 GMT -->
+
+<!-- Mirrored from html.phoenixcoded.net/nextro-able/bootstrap/default/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 29 Nov 2020 06:35:48 GMT -->
 <!-- </html> -->
+
+<!-- Mirrored from html.phoenixcoded.net/nextro-able/bootstrap/default/form2_basic.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 29 Nov 2020 06:35:58 GMT -->

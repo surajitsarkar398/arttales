@@ -29,23 +29,34 @@ class DashboardController extends Controller
         $register_id=Auth::user()->register_id;
         $count = User::where('role', 'Artist')->count();
         $data=array();
-        $data['daily_sale']=Order::where('user_id',$register_id)->where('date',date('Y-m-d'))->sum('grand_total');
-
-        $data['monthly_sale']=Order::where('user_id',$register_id)->whereMonth("date",'=',date('m'))->sum('grand_total');
-       
-        $data['yearly_sale']=Order::where('user_id',$register_id)->whereYear('date',date('Y'))->sum('grand_total');
-
-        $data['total_successfull_order']=Order::where('user_id',$register_id)->where('is_approval',1)->count();
-
-        $data['total_cancel_order']=Order::where('user_id',$register_id)->where('is_cancelled',1)->count();
-
-        $data['total_pending_order']=Order::where('user_id',$register_id)->where('is_cancelled',0)->where('is_approval',0)->count();
-
-        $data['total_product']=Product::where('seller_id',$register_id)->count();
-      
-       
         
-        return view('dashboard',compact('count'),compact('data'));
+        $data['total_sale']=Order::where('user_id',$register_id)->where('date',date('Y-m-d'))->sum('grand_total');
+
+        if(isset($_GET['sale_type']) && $_GET['sale_type']=='monthly'){
+
+        $data['total_sale']=Order::where('user_id',$register_id)->whereMonth("date",'=',date('m'))->sum('grand_total');
+
+        }else if(isset($_GET['sale_type']) && $_GET['sale_type']=='yearly'){
+
+        $data['total_sale']=Order::where('user_id',$register_id)->whereYear('date',date('Y'))->sum('grand_total');
+
+        }
+
+
+        $data['total_order']=Order::where('user_id',$register_id)->where('is_approval',1)->count();
+
+        if(isset($_GET['order_type']) && $_GET['order_type']=='cancelled'){   
+        $data['total_order']=Order::where('user_id',$register_id)->where('is_cancelled',1)->count();
+        }else if(isset($_GET['order_type']) && $_GET['order_type']=='pending'){
+        $data['total_order']=Order::where('user_id',$register_id)->where('is_cancelled',0)->where('is_approval',0)->count();
+        }
+
+
+
+        $data['total_product']=Product::where('seller_id',$register_id)->Paginate(4);
+     
+        
+        return view('dashboard',compact('data'));
     }
 
     /**

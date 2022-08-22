@@ -22,4 +22,8 @@ class sellerController extends Controller
                   ->Paginate(2);  
         return view('seller_user.view',compact('users'));
     }
+    public function update_seller()
+    {
+       
+    }
 }

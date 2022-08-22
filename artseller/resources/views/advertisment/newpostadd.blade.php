@@ -8,6 +8,7 @@
 
 
 
+
 	<!-- [ Main Content ] start -->
 <section class="pc-container">
     <div class="pcoded-content">
@@ -21,8 +22,9 @@
                             <a href="{{ route('dashboard') }}"><h5 class="m-b-10">Dashboard</h5></a>
                         </div>
                         <div class="page-header-title">
-                           <a href="{{ route('artist.detail',$artist->register_id) }}">
-                                <h5 class="m-b-10"> Seller Detalis
+                           <a href="">
+                                <h5 class="m-b-10">
+                                    
                                 </h5>
                             </a>
                         </div>
@@ -33,60 +35,60 @@
 
         <div class="row">
             <div class="col-lg-12">
-                <div class="card ">
+                <div class="card">
                     <div class="card-header">
-                        <h5>Add Seller</h5>
+                        <h4>  Promotion Post</h4>
                     </div>
-                     {{-- @include('alertmessage') --}}
-                    <form  action="{{URL('seller/store')}}"  enctype="multipart/form-data" method="post">
-                         @csrf
                     <div class="card-body">
-                        <div class="row">
-                      <div class="form-group col-md-3">    
-                           
-                            <img style="height:200px;" src="{{URL('public/images/register/')}}/{{$artist->image}}" alt="">
-                        </div>
-                        <div class="form-group col-md-3">
-                            <label for="demo-input-file" class="col-form-label">Enter Name</label>
-                           <input class="form-control p" readonly value="{{$artist->name}}" type="text"  id="demo-text-input" name="name"placeholder="Enter Your Name">
-                        </div>
-                        <div class="form-group col-md-1">
-                            <label for="demo-input-file" class="col-form-label">Country Code</label>
-                            <input class="form-control p" type="text" readonly value="{{$artist->country_code}}"  id="demo-text-input" name="country_code" placeholder="CountryCode">
+                         @include('alert_message')
+                        <form action="" method="POST" id=" "  enctype="multipart/form-data" >
+                            @csrf
+                            <div class="row form-group">
+                             
+                                <div class="col-lg-12">
+                                    <table class="table">
+                                        <thead>
+                                          <tr>
+                                          
+                                            <th>Post Image</th>
+                                            <th>Action</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($postlist as $item)
+                                            <tr>
+                                            <td>{{$item->post_image}}</td>
+                                         
+                                            <td>{{$item->post_image}}</td>
+                                          </tr>
+                                          @endforeach
+                                        </tbody>
+                                      </table>
+                                </div>
 
-                        </div>
-                        <div class="form-group col-md-5">
-                            <label for="demo-input-file" class="col-form-label">Mobile Numnber</label>
-                            <input class="form-control" type="tel" readonly value="{{$artist->mobile}}"  id="demo-tel-input" placeholder="Enter Your Number" name="mobile">
-                        </div>
-                    </div>
-                        
-                       <div class="row">
-                          <div class="form-group col-md-4">
-                            <label for="demo-date-only" class="col-form-label">Date Of Birth</label>
-                            <input class="form-control" type="date" name="dob" readonly value="{{$artist->dob}}"  id="demo-date-only">
-                        </div>
-                         <div class="form-group col-md-4">
-                            <label for="demo-date-only" class="col-form-label">Email</label>
-                            <input class="form-control" type="email" name="email" readonly value="{{$artist->email}}"  id="demo-email-input" placeholder="Enter Your Email">
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label for="demo-option-input " class="col-form-label " name="role">Select Role</label>
-                         <select class="form-control p" disabled id="selectUser"name="role">
-                                  <option value="select">Select</option>
-                                  <option value="Seller" selected>Seller</option>
-                                  </select>
-                  
-                        </div>
-                         
-                    </div>
-                        <input type="hidden" name="user_type" value="seller">
-                       
-                        <button type="submit" onclick="history.back()" class="btn btn-primary mr-2">Back</button>
-                    </div>
-                     
-                       
-                    </form>
+                                <div class="col-lg-4">
+                                    <label class="lable">Email Address</label> 
+                                    <input class="form-control" type="email" name="email" placeholder="Enter valid email address"
+                                    value="">
+                                </div> 
+                                <div class="col-lg-4">
+                                    <label class="lable">Email Address</label> 
+                                    <input class="form-control" type="email" name="email" placeholder="Enter valid email address"
+                                    value="">
+                                </div>    
+                            </div>    
+                            
+                           
+                            
+                            
+                           
+                           
+                            <div class="formfields text-right">
+                                <a href="{{ route('artist.index') }}"><button  class="btn btn-danger mr-2">Cancel</button></a>
+                                <button  type="submit" class="btn btn-primary mr-2">Save</button>
+                            </div>  
+                        </form>      
+                    </div>    
                 </div>
             </div>        
         </div>   
@@ -313,8 +315,14 @@ intlTelInput(input, {
     },
     utilsScript: "js/utils.js"
 });
-</script>
 
+</script>
+<script>
+    $(document).ready(function() {
+$('#post').select2();
+});
+
+</script>
 
 
 <!-- <script type="text/javascript">

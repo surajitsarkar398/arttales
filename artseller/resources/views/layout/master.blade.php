@@ -26,7 +26,7 @@
     <link rel="stylesheet" href="{{URL('assets/fonts/font-awsome-pro/css/pro.min.css')}}">
     <link rel="stylesheet" href="{{URL('assets/fonts/feather.css')}}">
     <link rel="stylesheet" href="{{URL('assets/fonts/fontawesome.css')}}">
-
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <!-- vendor css -->
     <link rel="stylesheet" href="{{URL('assets/css/style.css')}}">
     <link rel="stylesheet" href="{{URL('assets/css/customizer.css')}}">
@@ -37,7 +37,8 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
     <script>
         (function(h, o, t, j, a, r) {
             h.hj = h.hj || function() {
@@ -157,7 +158,8 @@
 
 
                     <li class="pc-item pc-hasmenu">
-                        <div class="pc-link "><span class="pc-micon"><i data-feather="life-buoy"></i></span><span class="pc-mtext">Advertisment</span><span class="pc-arrow"><i data-feather="chevron-right"></i></span></div>
+                        <div class="pc-link "><span class="pc-micon"><i data-feather="life-buoy"></i></span><span class="pc-mtext">Advertisment Report</span><span class="pc-arrow"><i data-feather="chevron-right"></i></span></div>
+                       
                         <ul class="pc-submenu">
                             <li class="pc-item"><a class="pc-link" href="{{URL('/advertisment/currentproductads')}}">Current Product Ads</a></li>
                         </ul>
@@ -185,6 +187,25 @@
                         </ul>
 
                     </li>
+
+                    <li class="pc-item pc-hasmenu">
+                        <div class="pc-link "><span class="pc-micon"><i data-feather="life-buoy"></i></span><span class="pc-mtext">New Advertisment</span><span class="pc-arrow"><i data-feather="chevron-right"></i></span></div>
+                       
+                        <ul class="pc-submenu">
+                            <li class="pc-item"><a class="pc-link" href="{{URL('/advertisment/new_post_add')}}">New Post Add</a></li>
+                        </ul>
+                        <ul class="pc-submenu">
+                            <li class="pc-item"><a class="pc-link" href="{{URL('/advertisment/new_promotion_add')}}">New Promotion Add</a></li>
+                        </ul>
+                        <ul class="pc-submenu">
+                            <li class="pc-item"><a class="pc-link" href="{{URL('/advertisment/new_product_add')}}">New Product Add</a></li>
+                        </ul>
+                        <ul class="pc-submenu">
+                            <li class="pc-item"><a class="pc-link" href="{{URL('/advertisment/new_store_add')}}">New Store Add</a></li>
+                        </ul>
+                       
+
+                    </li>
                     <li class="pc-item pc-hasmenu">
                         <div class="pc-link "><span class="pc-micon"><i data-feather="life-buoy"></i></span><span class="pc-mtext">Post</span><span class="pc-arrow"><i data-feather="chevron-right"></i></span></div>
                         <ul class="pc-submenu">
@@ -198,6 +219,10 @@
                             <li class="pc-item"><a class="pc-link" href="{{ route('order.quatarly_report') }}">Quatarly Report</a></li>
                             <li class="pc-item"><a class="pc-link" href="{{ route('order.product_report') }}">Productwise</a></li>
                         </ul>
+                    </li>
+                     <li class="pc-item pc-hasmenu">
+                        <a href="{{route('update_seller')}}" class="pc-link"><span class="pc-micon"><i data-feather="life-buoy"></i></span><span class="pc-mtext">Seller Profile</span><span class="pc-arrow"></span></a>
+                        
                     </li>
                 </ul>
             </div>

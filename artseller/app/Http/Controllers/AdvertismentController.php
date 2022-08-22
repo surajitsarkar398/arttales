@@ -13,6 +13,7 @@ use Validator;
 use Illuminate\Support\Facades\DB;
 use App\Http\Utility\CustomVerfication;
 use Carbon\Carbon;
+use Auth;
 
 
 
@@ -29,13 +30,13 @@ class AdvertismentController extends Controller
     //  $adslist = Advertisment::where('ads_id',$request->id)->first();
     // return view('advertisment.viewstores', compact('adslist'));
 
-    $adslists = DB::table('advertisments')
-      ->join('users', 'advertisments.register_id', '=', 'users.register_id')
-      ->join('stores', 'advertisments.store_id', '=', 'stores.store_id')
-      ->select('advertisments.*', 'users.*', 'stores.*')
-      ->where('advertisments.is_approval', '0')
-      ->where('advertisments.ads_type', 'store')
-      ->where('advertisments.ads_id', '=', $request->id)
+    $adslists = DB::table('promotionals')
+      ->join('users', 'promotionals.register_id', '=', 'users.register_id')
+      ->join('stores', 'promotionals.store_id', '=', 'stores.store_id')
+      ->select('promotionals.*', 'users.*', 'stores.*')
+      ->where('promotionals.is_approve', '0')
+      ->where('promotionals.ads_type', 'store')
+      ->where('promotionals.ads_id', '=', $request->id)
       ->get();
 
     foreach ($adslists as $adslist) {
@@ -48,12 +49,12 @@ class AdvertismentController extends Controller
     //   $adslist = Advertisment::where('ads_id',$request->id)->first();
     // return view('advertisment.viewprofiledetails', compact('adslist'));
 
-    $adslists = DB::table('advertisments')
+    $adslists = DB::table('promotionals')
       ->join('users', 'advertisments.register_id', '=', 'users.register_id')
-      ->select('advertisments.*', 'users.*')
-      ->where('advertisments.is_approval', '0')
-      ->where('advertisments.ads_type', 'profile')
-      ->where('advertisments.ads_id', '=', $request->id)
+      ->select('promotionals.*', 'users.*')
+      ->where('promotionals.is_approve', '0')
+      ->where('promotionals.ads_type', 'profile')
+      ->where('promotionals.ads_id', '=', $request->id)
       ->get();
 
     foreach ($adslists as $adslist) {
@@ -68,13 +69,13 @@ class AdvertismentController extends Controller
     //   $adslist = Advertisment::where('ads_id',$request->id)->first();
     // return view('advertisment.viewpostdetails', compact('adslist'));
 
-    $adslists = DB::table('advertisments')
-      ->join('users', 'advertisments.register_id', '=', 'users.register_id')
-      ->join('posts', 'advertisments.post_id', '=', 'posts.post_id')
-      ->select('advertisments.*', 'users.*')
-      ->where('advertisments.is_approval', '0')
-      ->where('advertisments.ads_type', 'post')
-      ->where('advertisments.ads_id', '=', $request->id)
+    $adslists = DB::table('promotionals')
+      ->join('users', 'promotionals.register_id', '=', 'users.register_id')
+      ->join('posts', 'promotionals.post_id', '=', 'posts.post_id')
+      ->select('promotionals.*', 'users.*')
+      ->where('promotionals.is_approve', '0')
+      ->where('promotionals.ads_type', 'post')
+      ->where('promotionals.ads_id', '=', $request->id)
       ->get();
 
     foreach ($adslists as $adslist) {
@@ -88,13 +89,13 @@ class AdvertismentController extends Controller
     //   $adslist = Advertisment::where('ads_id',$request->id)->first();
     // return view('advertisment.viewproductdetails', compact('adslist'));
 
-    $adslists = DB::table('advertisments')
+    $adslists = DB::table('promotionals')
       ->join('users', 'advertisments.register_id', '=', 'users.register_id')
       ->join('products', 'advertisments.product_id', '=', 'products.product_id')
-      ->select('advertisments.*', 'users.*', 'products.*')
-      ->where('advertisments.is_approval', '0')
-      ->where('advertisments.ads_type', 'product')
-      ->where('advertisments.ads_id', '=', $request->id)
+      ->select('promotionals.*', 'users.*', 'products.*')
+      ->where('promotionals.is_approve', '0')
+      ->where('promotionals.ads_type', 'product')
+      ->where('promotionals.ads_id', '=', $request->id)
       ->get();
 
     foreach ($adslists as $adslist) {
@@ -105,12 +106,12 @@ class AdvertismentController extends Controller
 
   public function pendingstores()
   {
-    $adslist = DB::table('advertisments')
-      ->join('users', 'advertisments.register_id', '=', 'users.register_id')
-      ->join('stores', 'advertisments.store_id', '=', 'stores.store_id')
-      ->select('advertisments.*', 'users.*', 'stores.*')
-      ->where('advertisments.is_approval', '0')
-      ->where('advertisments.ads_type', 'store')
+    $adslist = DB::table('promotionals')
+      ->join('users', 'promotionals.register_id', '=', 'users.register_id')
+      ->join('stores', 'promotionals.store_id', '=', 'stores.store_id')
+      ->select('promotionals.*', 'users.*', 'stores.*')
+      ->where('promotionals.is_approve', '0')
+      ->where('promotionals.ads_type', 'store')
       ->get();
 
 
@@ -352,9 +353,31 @@ class AdvertismentController extends Controller
     ->where('promotionals.is_aprove', '1')
     ->where('promotionals.ads_type', 'store')
       ->get();
-
-
     return view('advertisment.currentstoreads', compact('adslist'));
+  }
+
+
+  public function newadvertisement_post()
+  {
+    $register_id=Auth::user()->register_id;
+    $postlist = Post::select('posts.*')->where('posts.register_id','=',$register_id)
+        ->orderBy('post_id', 'DESC')
+        ->get();
+     
+        return view('advertisment.newpostadd', compact('postlist'));
+
+  }
+  public function newadvertisement_profile()
+  {
+
+  }
+  public function newadvertisement_product()
+  {
+
+  }
+  public function newadvertisement_store()
+  {
+
   }
 
 

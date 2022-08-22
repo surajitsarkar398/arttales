@@ -41,6 +41,7 @@ class User extends Authenticatable
         'sub_category_name',
         'role',
         'type',
+        'user_type',
         'created_at',
         'updated_at',
         

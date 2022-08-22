@@ -163,6 +163,15 @@ Route::middleware('auth')->group(function () {
    Route::name('seller_user.')->prefix('seller_user')->group(function () {
       Route::get('/', [App\Http\Controllers\sellerController::class, 'index'])->name('index');
       Route::get('add', [App\Http\Controllers\sellerController::class, 'create'])->name('create');
+      Route::get('detail/{id}', [App\Http\Controllers\sellerController::class, 'detail'])->name('detail');
+      Route::get('edit/{id}', [App\Http\Controllers\sellerController::class, 'edit'])->name('edit');
+
+      Route::post('saveedit', [App\Http\Controllers\sellerController::class, 'saveEdit'])->name('update');
+
+      Route::get('delete/{id}', [App\Http\Controllers\sellerController::class, 'destroy'])->name('destroy');
+
+      Route::get('detail/{id}', [App\Http\Controllers\sellerController::class, 'detail'])->name('detail');
+
    });
 
    //currentads
@@ -189,7 +198,8 @@ Route::middleware('auth')->group(function () {
    Route::get('/advertisment/ChangeStatusStore/{id}', 'AdvertismentController@ChangeStatusStore');
    Route::get('/advertisment/ChangeStatusProfile/{id}', 'AdvertismentController@ChangeStatusProfile');
    Route::get('/advertisment/ChangeStatusPost/{id}', 'AdvertismentController@ChangeStatusPost');
-
+   Route::post('/seller/store', 'SellerController@store');
+   Route::post('/seller/saveEdit', 'SellerController@saveEdit');
    // Route::get('/product/viewproduct','ProductController@index');
    // Route::get('/product/addproduct','ProductController@create');
    // Route::post('/product/addproduct/store','ProductController@store');

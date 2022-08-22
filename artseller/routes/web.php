@@ -202,6 +202,13 @@ Route::middleware('auth')->group(function () {
    Route::get('/advertisment/ChangeStatusProfile/{id}', 'AdvertismentController@ChangeStatusProfile');
    Route::get('/advertisment/ChangeStatusPost/{id}', 'AdvertismentController@ChangeStatusPost');
 
+   Route::get('/advertisment/new_post_add', 'AdvertismentController@newadvertisement_post');
+   Route::get('/advertisment/new_promotion_add', 'AdvertismentController@newadvertisement_profile');
+   Route::get('/advertisment/new_product_add', 'AdvertismentController@newadvertisement_product');
+   Route::get('/advertisment/new_store_add', 'AdvertismentController@newadvertisement_store');
+
+   Route::get('update_seller', [App\Http\Controllers\sellerController::class, 'update_seller'])->name('update_seller');
+
    // Route::get('/product/viewproduct','ProductController@index');
    // Route::get('/product/addproduct','ProductController@create');
    // Route::post('/product/addproduct/store','ProductController@store');

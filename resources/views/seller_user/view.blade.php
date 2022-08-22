@@ -114,7 +114,7 @@
                                             <td>{{ $no +1 }}</td>
                                             <td>
                                                 @if($user->image != null) 
-                                                    <img src="{{ URL('public/images/register') }}/{{ $user->image }}" alt="" height="50px" width="50px">
+                                                    <img src="{{ URL('public/images/artistLover') }}/{{ $user->image }}" alt="" height="50px" width="50px">
                                                 @else
                                                     <img src="public/images/avatar.png" alt="" height="50px" width="50px">
                                                 @endif    
@@ -146,18 +146,18 @@
                                                 @endif()  
                                             </td>
                                             <td>
-                                                <a href="#">
+                                                <a href="{{route('seller_user.detail',$user->register_id) }}">
                                                     <i class="fa fa-eye" aria-hidden="true" 
                                                     style="color:green;"></i>
                                                 </a>
                                                 &nbsp;&nbsp;
                                                
-                                                <a href="#">
+                                                <a href="{{route('seller_user.edit',$user->register_id) }}">
                                                     <i class="fas fa-edit"  aria-hidden="true"></i>
                                                 </a>
                                                 &nbsp;&nbsp;
                                             
-                                                <a href="#">
+                                                <a href="{{route('artist-lover.destroy',$user->register_id) }}">
                                                     <i class="fa fa-trash" aria-hidden="true"
                                                     style="color:red"></i>
                                                 </a>

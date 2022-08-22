@@ -118,6 +118,8 @@
                                          <th>dates</th>
                                          <th>times</th>
                                          <th>payment method</th>
+                                         <th>Status</th>
+                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 @foreach($orderlist as $no => $order)
@@ -129,16 +131,17 @@
                                             <td>{{ $order->product_name }}</td>
                                             <td>
                                             @foreach(explode(',',$order->product_image)  as $images)
-                                                <img src="{{ URL('public/images/product') }}/{{ $images }}" alt="" height="50px" width="50px">
+                                                <img src='{{ URL('public/images/product') }}/{{ $images }}' alt="" height="50px" width="50px">
                                                  @endforeach
                                             </td>
                                             <td>{{ $order->store_name }}</td>
                                             <td>{{ $order->category }}</td>
                                             <td>{{ $order->payment }}</td>
-                                            <td>{{ $order->dates }}</td>
+                                            <td>{{ $order->date }}</td>
                                             <td>{{ $order->times }}</td>
                                             <td>{{ $order->payment_method }}</td>
-                                               
+                                            <td><?php if($order->is_approval=='0'){ echo '<a class="btn btn-success btn-sm">Approved</a>'; }else if($order->is_cancelled=='0'){ echo '<a href="" class="btn btn-danger btn-sm">Cancelled</a>';}else if($order->status=='0'){echo '<a class="btn btn-warning btn-sm">Pending</a>';} ?></td>
+                                            <td><?php if($order->is_approval=='0'){ ?><a href="{{URL('order/order_approve',$order->order_id)}}" class="btn btn-success btn-sm">Approved</a> <a href="{{URL('order/order_cancel',$order->order_id)}}" class="btn btn-danger btn-sm">Cancel</a><?php } ?></td>  
                                 </tbody>
                                 @endforeach
                                 <tfoot>
