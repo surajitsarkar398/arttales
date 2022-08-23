@@ -37,34 +37,42 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4>  Promotion Profile</h4>
+                        <h4>  Promotion Post</h4>
                     </div>
                     <div class="card-body">
                          @include('alert_message')
-                        <form action="{{route('new_add_profile_store')}}" method="POST" id=" "  enctype="multipart/form-data" >
+                        <form action="{{route('new_post_add_store')}}" method="POST" id=" "  enctype="multipart/form-data" >
                             @csrf
                             <div class="row form-group">
                              
-                                {{-- <div class="col-lg-12">
+                                <div class="col-lg-12">
                                     <label class="lable">Select Product</label><br>
                                     <div class="row">
-                                        <div class="col-lg-12">
-                                        <select name="store" class="form-control" id="store">
-                                            <option value="">Select Store</option>
-                                            @foreach ($postlist as $item)
-                                            <option value="{{$item->store_id}}">{{$item->store_name}}</option>
-                                            @endforeach
-                                        </select>
+                                        
+                                        @foreach ($postlist as $item)
+                                            
+                                        
+                                        <div class="col-sm-2 text-center">
+                                            <label class="image-checkbox" title="England">
+                                                <?php 
+                                                $images=explode(',',$item->post_image);
+                                                ?>
+                                              <img height="100px;" src="{{ URL('public/images/post') }}/{{ $images[0] }}" />
+                                             
+                                                <input type="checkbox" name="post[]" value="{{$item->post_id}}"  />
+                                            </label>
                                         </div>
+                                       
+                                        @endforeach
                                     </div>
-                                </div> --}}
+                                </div>
 
-                                <div class="col-lg-6">
+                                <div class="col-lg-4">
                                     <label class="lable">Budget</label> 
                                     <input class="form-control" onkeyup="cal_spend()" id="budget" type="number" name="budget" placeholder="Budget"
                                     value="">
                                 </div> 
-                                <div class="col-lg-6">
+                                <div class="col-lg-4">
                                     <label class="lable">Duration</label> 
                                     <input class="form-control" onkeyup="cal_spend()" id="duration" type="duration" name="duration" placeholder="Duration"
                                     value="">
@@ -321,9 +329,7 @@ intlTelInput(input, {
 
 </script>
 <script>
-    $(document).ready(function() {
-$('#post').select2();
-});
+
 
 </script>
 <script type="text/javascript">

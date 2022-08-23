@@ -41,43 +41,54 @@
                     </div>
                     <div class="card-body">
                          @include('alert_message')
-                        <form action="" method="POST" id=" "  enctype="multipart/form-data" >
+                        <form action="{{route('new_post_add_store')}}" method="POST" id=" "  enctype="multipart/form-data" >
                             @csrf
                             <div class="row form-group">
                              
                                 <div class="col-lg-12">
-                                    <table class="table">
-                                        <thead>
-                                          <tr>
-                                          
-                                            <th>Post Image</th>
-                                            <th>Action</th>
-                                          </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach ($postlist as $item)
-                                            <tr>
-                                            <td>{{$item->post_image}}</td>
-                                         
-                                            <td>{{$item->post_image}}</td>
-                                          </tr>
-                                          @endforeach
-                                        </tbody>
-                                      </table>
+                                    <label class="lable">Select Product</label><br>
+                                    <div class="row">
+                                        
+                                        @foreach ($postlist as $item)
+                                            
+                                        
+                                        <div class="col-lg-1 text-center">
+                                            <label class="image-checkbox" title="England">
+                                                <?php 
+                                                $images=explode(',',$item->post_image);
+                                                ?>
+                                              <img height="100px;" src="{{ URL('public/images/post') }}/{{ $images[0] }}" />
+                                             
+                                                <input type="checkbox" name="post[]" value="{{$item->post_id}}"  />
+                                            </label>
+                                        </div>
+                                       
+                                        @endforeach
+                                    </div>
                                 </div>
 
                                 <div class="col-lg-4">
-                                    <label class="lable">Email Address</label> 
-                                    <input class="form-control" type="email" name="email" placeholder="Enter valid email address"
+                                    <label class="lable">Budget</label> 
+                                    <input class="form-control" onkeyup="cal_spend()" id="budget" type="number" name="budget" placeholder="Budget"
                                     value="">
                                 </div> 
                                 <div class="col-lg-4">
-                                    <label class="lable">Email Address</label> 
-                                    <input class="form-control" type="email" name="email" placeholder="Enter valid email address"
+                                    <label class="lable">Duration</label> 
+                                    <input class="form-control" onkeyup="cal_spend()" id="duration" type="duration" name="duration" placeholder="Duration"
                                     value="">
                                 </div>    
                             </div>    
-                            
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <label class="lable">Estimated Reach</label>
+                                        <b>250-180</b> 
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <label class="lable">Total Spend</label>
+                                        <b id="tot_spend">0 Rs</b> 
+                                        <input type="hidden" name="tot_spend" id="tot_spend_val">
+                                    </div>
+                                </div>
                            
                             
                             
@@ -323,7 +334,64 @@ $('#post').select2();
 });
 
 </script>
+<script type="text/javascript">
+    jQuery(function ($) {
+        // init the state from the input
+        $(".image-checkbox").each(function () {
+            if ($(this).find('input[type="checkbox"]').first().attr("checked")) {
+                $(this).addClass('image-checkbox-checked');
+            }
+            else {
+                $(this).removeClass('image-checkbox-checked');
+            }
+        });
 
+        // sync the state to the input
+        $(".image-checkbox").on("click", function (e) {
+            if ($(this).hasClass('image-checkbox-checked')) {
+                $(this).removeClass('image-checkbox-checked');
+                $(this).find('input[type="checkbox"]').first().removeAttr("checked");
+            }
+            else {
+                $(this).addClass('image-checkbox-checked');
+                $(this).find('input[type="checkbox"]').first().attr("checked", "checked");
+            }
+
+            e.preventDefault();
+        });
+    });
+   function cal_spend()
+   {
+        var budget=Number($("#budget").val());
+        var duration=Number($("#duration").val());
+        var tot_budget=budget*duration;
+        var tax=tot_budget*18/100;
+        var tot_cost=tot_budget+tax;
+        $("#tot_spend").html(tot_cost);
+        $("#tot_spend_val").val(tot_cost);
+   }
+</script>
+<style>
+    .image-checkbox
+    {
+        cursor: pointer;
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        border: 4px solid transparent;
+        outline: 0;
+    }
+
+        .image-checkbox input[type="checkbox"]
+        {
+            display: none;
+        }
+
+    .image-checkbox-checked
+    {
+        border-color: #f58723;
+    }
+</style>
 
 <!-- <script type="text/javascript">
     // Vanilla Javascript

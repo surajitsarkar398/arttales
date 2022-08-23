@@ -192,19 +192,19 @@
                         <div class="pc-link "><span class="pc-micon"><i data-feather="life-buoy"></i></span><span class="pc-mtext">New Advertisment</span><span class="pc-arrow"><i data-feather="chevron-right"></i></span></div>
                        
                         <ul class="pc-submenu">
-                            <li class="pc-item"><a class="pc-link" href="{{URL('/advertisment/new_post_add')}}">New Post Add</a></li>
+                            <li class="pc-item"><a class="pc-link" href="{{URL('/advertisment/new_post_add')}}">Promote Post</a></li>
                         </ul>
                         <ul class="pc-submenu">
-                            <li class="pc-item"><a class="pc-link" href="{{URL('/advertisment/new_promotion_add')}}">New Promotion Add</a></li>
+                            <li class="pc-item"><a class="pc-link" href="{{URL('/advertisment/new_promotion_add')}}">Promote Profile</a></li>
                         </ul>
                         <ul class="pc-submenu">
-                            <li class="pc-item"><a class="pc-link" href="{{URL('/advertisment/new_product_add')}}">New Product Add</a></li>
+                            <li class="pc-item"><a class="pc-link" href="{{URL('/advertisment/new_product_add')}}">Promote Product</a></li>
                         </ul>
                         <ul class="pc-submenu">
-                            <li class="pc-item"><a class="pc-link" href="{{URL('/advertisment/new_store_add')}}">New Store Add</a></li>
+                            <li class="pc-item"><a class="pc-link" href="{{URL('/advertisment/new_store_add')}}">Promote Store</a></li>
                         </ul>
                        
-
+                            
                     </li>
                     <li class="pc-item pc-hasmenu">
                         <div class="pc-link "><span class="pc-micon"><i data-feather="life-buoy"></i></span><span class="pc-mtext">Post</span><span class="pc-arrow"><i data-feather="chevron-right"></i></span></div>

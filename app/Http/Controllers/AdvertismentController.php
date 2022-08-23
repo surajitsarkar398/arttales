@@ -9,10 +9,13 @@ use App\Models\User;
 use App\Models\Product;
 use App\Models\Post;
 use App\Models\Advertisment;
+use App\Models\promotionals;
+use App\Models\Store;
 use Validator;
 use Illuminate\Support\Facades\DB;
 use App\Http\Utility\CustomVerfication;
 use Carbon\Carbon;
+use Auth;
 
 
 
@@ -424,4 +427,151 @@ class AdvertismentController extends Controller
   {
     //
   }
+  public function newadvertisement_post()
+  {
+    $register_id=Auth::user()->register_id;
+    $postlist = Post::get();
+    return view('advertisment.newpostadd', compact('postlist'));
+
+  }
+  public function new_product_add_store(Request $request)
+  {
+   
+
+
+        $promotionals = new promotionals;
+        $products=implode(',',$request->product);
+       
+        $promotionals->register_id = Auth::user()->register_id;
+        $promotionals->ads_type = "product";
+        $promotionals->post_id = $products;
+        $promotionals->budget_daily = $request->budget;
+        $promotionals->duration_days = $request->duration;
+      
+        $promotionals->tax = "35";
+       
+        $promotionals->save();
+       
+        return redirect('advertisment/new_product_add')->with('success','Product Add Added successfully.');
+     
+      
+
+
+    
+   
+
+  }
+  public function new_store_add_store(Request $request)
+  {
+   
+
+
+        $promotionals = new promotionals;
+        $products=implode(',',$request->product);
+       
+        $promotionals->register_id = Auth::user()->register_id;
+        $promotionals->ads_type = "product";
+        $promotionals->post_id = $products;
+        $promotionals->budget_daily = $request->budget;
+        $promotionals->duration_days = $request->duration;
+        $promotionals->total_spend = $request->tot_spend;
+      
+        $promotionals->tax = "35";
+       
+        $promotionals->save();
+       
+        return redirect('advertisment/new_product_add')->with('success','Product Add Added successfully.');
+     }
+     public function new_post_add_store(Request $request)
+  {
+   
+
+
+        $promotionals = new promotionals;
+        $post=implode(',',$request->post);
+       
+        $promotionals->register_id = Auth::user()->register_id;
+        $promotionals->ads_type = "post";
+        $promotionals->post_id = $post;
+        $promotionals->budget_daily = $request->budget;
+        $promotionals->duration_days = $request->duration;
+      
+        $promotionals->tax = "35";
+       
+        $promotionals->save();
+       
+        return redirect('advertisment/new_product_add')->with('success','Product Add Added successfully.');
+     
+      
+
+
+    
+   
+
+  }
+  public function newadvertisement_profile()
+  {
+    $register_id=Auth::user()->register_id;
+    $postlist = Product::where('seller_id',$register_id)->get();
+     
+        return view('advertisment.newprofileadd', compact('postlist'));
+  }
+  public function newadvertisement_product()
+  {
+    $register_id=Auth::user()->register_id;
+    $postlist = Product::get();
+     
+        return view('advertisment.newproductadd', compact('postlist'));
+
+  }
+  public function newadvertisement_store()
+  {
+    $register_id=Auth::user()->register_id;
+    $postlist = Store::get();
+     
+    return view('advertisment.newstoreadd', compact('postlist'));
+  }
+  public function new_add_store_store(Request $request)
+  {
+   
+
+      
+        $promotionals = new promotionals;
+      
+       
+        $promotionals->register_id = Auth::user()->register_id;
+        $promotionals->ads_type = "store";
+        $promotionals->store_id = $request->store;
+        $promotionals->budget_daily = $request->budget;
+        $promotionals->duration_days = $request->duration;
+        $promotionals->total_spend = $request->tot_spend;
+      
+        $promotionals->tax = "35";
+       
+        $promotionals->save();
+       
+        return redirect('advertisment/new_product_add')->with('success','Product Add Added successfully.');
+     }
+     public function new_add_profile_store(Request $request)
+  {
+   
+
+      
+        $promotionals = new promotionals;
+      
+       
+        $promotionals->register_id = Auth::user()->register_id;
+        $promotionals->ads_type = "profile";
+        $promotionals->profile_id = Auth::user()->register_id;
+        $promotionals->budget_daily = $request->budget;
+        $promotionals->duration_days = $request->duration;
+        $promotionals->total_spend = $request->tot_spend;
+      
+        $promotionals->tax = "35";
+       
+        $promotionals->save();
+      
+        return redirect('advertisment/new_product_add')->with('success','Profile Add Added successfully.');
+     }
+
 }

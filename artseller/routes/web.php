@@ -203,10 +203,17 @@ Route::middleware('auth')->group(function () {
    Route::get('/advertisment/ChangeStatusPost/{id}', 'AdvertismentController@ChangeStatusPost');
 
    Route::get('/advertisment/new_post_add', 'AdvertismentController@newadvertisement_post');
+
    Route::get('/advertisment/new_promotion_add', 'AdvertismentController@newadvertisement_profile');
    Route::get('/advertisment/new_product_add', 'AdvertismentController@newadvertisement_product');
+  
    Route::get('/advertisment/new_store_add', 'AdvertismentController@newadvertisement_store');
 
+
+   Route::post('new_product_add_store', [App\Http\Controllers\AdvertismentController::class, 'new_product_add_store'])->name('new_product_add_store');
+   Route::post('new_add_store_store', [App\Http\Controllers\AdvertismentController::class, 'new_add_store_store'])->name('new_add_store_store');
+   Route::post('new_add_profile_store', [App\Http\Controllers\AdvertismentController::class, 'new_add_profile_store'])->name('new_add_profile_store');
+   Route::post('new_post_add_store', [App\Http\Controllers\AdvertismentController::class, 'new_post_add_store'])->name('new_post_add_store');
    Route::get('update_seller', [App\Http\Controllers\sellerController::class, 'update_seller'])->name('update_seller');
 
    // Route::get('/product/viewproduct','ProductController@index');

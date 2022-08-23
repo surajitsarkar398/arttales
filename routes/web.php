@@ -207,6 +207,18 @@ Route::middleware('auth')->group(function () {
     Route::post('/product/saveEdit', 'ProductController@saveEdit');
     Route::get('/product/destroy/{id}', 'ProductController@destroy');
 
+    Route::get('/advertisment/new_post_add', 'AdvertismentController@newadvertisement_post');
+
+   Route::get('/advertisment/new_promotion_add', 'AdvertismentController@newadvertisement_profile');
+   Route::get('/advertisment/new_product_add', 'AdvertismentController@newadvertisement_product');
+  
+   Route::get('/advertisment/new_store_add', 'AdvertismentController@newadvertisement_store');
+
+
+   Route::post('new_product_add_store', [App\Http\Controllers\AdvertismentController::class, 'new_product_add_store'])->name('new_product_add_store');
+   Route::post('new_add_store_store', [App\Http\Controllers\AdvertismentController::class, 'new_add_store_store'])->name('new_add_store_store');
+   Route::post('new_add_profile_store', [App\Http\Controllers\AdvertismentController::class, 'new_add_profile_store'])->name('new_add_profile_store');
+   Route::post('new_post_add_store', [App\Http\Controllers\AdvertismentController::class, 'new_post_add_store'])->name('new_post_add_store');
    /*   //Route::get('/   ','UserController@index');
     Route::get('/user/addartist','UserController@create');
     Route::post('/user/addartist/store','UserController@store');
